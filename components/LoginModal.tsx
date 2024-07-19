@@ -1,23 +1,20 @@
 'use client'
 import React from 'react';
-import { Button, Modal, Form, Input } from 'antd';
+import { Modal, Form, Input } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
-
+import FillButton from './FillButton';
 interface LoginModalProps {
-	isOpen: boolean;
-	onClose: () => void;
-	onSwitchToSignup: () => void;
+	isOpen?: boolean;
+	onClose?: () => void;
 }
 
-export default function LoginModal({ isOpen, onClose, onSwitchToSignup }: LoginModalProps) {
+export default function LoginModal({ isOpen = false, onClose = () => { } }: LoginModalProps) {
 	const router = useRouter();
 	const onFinish = (values: any) => {
-		console.log('Received values of form: ', values);
-		router.push('LC_hotel/Registration')
 	};
-	const title = <img src="/icons/svg/Logo.svg" className="w-[180px]"></img>
 
+	const title = <img src="/icons/svg/Logo.svg" className="w-[180px]" />
 	return (
 		<Modal
 			className="m-[32px] loginModal"
@@ -29,7 +26,7 @@ export default function LoginModal({ isOpen, onClose, onSwitchToSignup }: LoginM
 			onCancel={onClose}
 			destroyOnClose
 		>
-			<p className="w-full font-bold text-[30px] mb-3">Вход в кабинет</p>
+			<h4 className="text-h4 mb-[24px]">Вход в кабинет</h4>
 			<Form
 				name="normal_login"
 				className="login-form"
@@ -41,8 +38,7 @@ export default function LoginModal({ isOpen, onClose, onSwitchToSignup }: LoginM
 					name="email"
 					rules={[{ required: true, message: 'Пожалуйста, введите свою почту!', type: "email" }]}
 				>
-					<Input
-						placeholder="Почта" />
+					<Input placeholder="Почта" className='p-[12px] text-[16px] rounded-[8px]' />
 				</Form.Item>
 				<Form.Item
 					name="password"
@@ -51,18 +47,13 @@ export default function LoginModal({ isOpen, onClose, onSwitchToSignup }: LoginM
 					<Input
 						type="password"
 						placeholder="Пароль"
+						className='p-[12px] text-[16px] rounded-[8px]'
 					/>
 				</Form.Item>
-				<Link className="text-[16px] text-[#3C4EF2] font-medium block mb-[20px]" href="/LC_hotel">
+				<Link className="text-p3 text-accent block mb-[20px]" href="/LC_hotel">
 					Не помню пароль
 				</Link>
-
-				<Form.Item>
-					<button className='primary size-m text-lg h-[50px] w-full mb-[20px]'>
-						Войти
-					</button>
-					или <a className="text-[16px] text-[#3C4EF2] font-medium" href="#" onClick={onSwitchToSignup}>зарегистрироваться</a>
-				</Form.Item>
+				<FillButton caption='Войти' isFullWidth />
 			</Form>
 		</Modal>
 	);

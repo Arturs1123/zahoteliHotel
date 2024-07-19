@@ -37,7 +37,7 @@ export default function Wanted() {
 					</div>
 					<img src="/image/wanted.svg" className="ml-[40px] md:block hidden" />
 				</div>
-				<RegisterModal isOpen={isSignupModalOpen} onClose={closeSignupModal} onSwitchToLogin={openLoginModal} />
+				<RegisterModal isOpen={isSignupModalOpen} onClose={closeSignupModal} />
 			</div>
 		</div>
 	);

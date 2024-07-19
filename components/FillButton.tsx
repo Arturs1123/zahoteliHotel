@@ -1,6 +1,6 @@
 export default function FillButton(
     { size = 'md', caption = '', onBtnClick = () => { }, isFullWidth = false, ...props }:
-        { size?: 'lg' | 'md' | 'sm', caption?: string, onBtnClick: () => void, isFullWidth?: boolean } & React.HTMLAttributes<HTMLDivElement>
+        { size?: 'lg' | 'md' | 'sm', caption?: string, onBtnClick?: () => void, isFullWidth?: boolean } & React.HTMLAttributes<HTMLDivElement>
 ) {
     const properties = {
         lg: { rounded: '12px', px: '32px', py: '20px', fsize: 'md:text-h5 text-h6' },

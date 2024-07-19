@@ -45,3 +45,7 @@
   line-height: 27.32px;
   margin-bottom: 10px;
 }
+
+div.customize-select {
+  height: 50px;
+}
