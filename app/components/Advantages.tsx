@@ -8,19 +8,18 @@ export default function Advantages() {
 					<p className='md:text-h5 text-h6 text-center'>Тысячи туристов круглый год</p>
 				</div>
 				<div className="flex flex-col items-center">
-					<img src="/icons/svg/wallet-icon.svg"></img>
+					<img src="/icons/svg/wallet-icon.svg" />
 					<p className='md:text-h5 text-h6 text-center'>Оперативные выплаты</p>
 				</div>
 				<div className="flex flex-col items-center">
-					<img src="/icons/svg/laptop-icon-1.svg"></img>
+					<img src="/icons/svg/laptop-icon-1.svg" />
 					<p className='md:text-h5 text-h6 text-center'>Удобная система управления отелем</p>
 				</div>
 				<div className="flex flex-col items-center">
-					<img src="/icons/svg/handshake-icon.svg"></img>
+					<img src="/icons/svg/handshake-icon.svg" />
 					<p className='md:text-h5 text-h6 text-center'>Круглосуточная поддержка</p>
 				</div>
 			</div>
-
 		</div>
 	);
 }

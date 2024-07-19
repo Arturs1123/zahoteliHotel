@@ -48,7 +48,7 @@ export default function RootLayout({
       >
         <body className={inter.className}>
           <Header />
-          <main className="mx-auto max-w-[1440px] lg:mt-[94px] mt-[48px]">
+          <main className="mx-auto max-w-[1440px] lg:mt-[94px] mt-[48px] bg-[#F9F9F9]">
             {children}
           </main>
           <Footer {...FooterData} />
