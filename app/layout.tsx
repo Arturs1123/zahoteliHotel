@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Golos_Text } from "next/font/google";
 import "./globals.css";
+import "./style.css";
 import Footer from "./components/Footer";
 import { FooterProps } from "./components/Footer";
 import Header from "./components/Header";
@@ -47,7 +48,7 @@ export default function RootLayout({
       >
         <body className={inter.className}>
           <Header />
-          <main className="mx-auto max-w-[1440px] lg:mt-[94px] mt-[46px] px-[16px]">
+          <main className="mx-auto max-w-[1440px] lg:mt-[94px] mt-[48px]">
             {children}
           </main>
           <Footer {...FooterData} />
