@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 import { FooterProps } from "./components/Footer";
 import Header from "./components/Header";
 import { ConfigProvider } from "antd";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Golos_Text({ subsets: ["latin"] });
 
@@ -48,6 +50,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer {...FooterData} />
+          <ToastContainer />
         </body>
       </ConfigProvider>
     </html >

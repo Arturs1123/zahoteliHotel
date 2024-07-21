@@ -1,14 +1,13 @@
-import React from 'react';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Select, Form, Input, Modal } from 'antd';
-import Link from 'next/link';
-import FullWidthBtn from './FullWidthBtn';
-import FillButton from './FillButton';
+import { Select, Form, Input, Modal } from 'antd';
+import FillButton from '../../components/FillButton';
+import { CredentialType, signup } from '../backend_apis';
+import { toast } from "react-toastify"
 const { Option } = Select
 
 interface SignupModalProps {
-	isOpen?: boolean;
-	onClose?: () => void;
+	isOpen?: boolean
+	onClose?: () => void
+	onSignup?: (credential: CredentialType) => void
 }
 
 const positions = [
@@ -17,9 +16,10 @@ const positions = [
 	{ label: 'moderator2', value: 'moderator2' },
 ]
 
-export default function RegisterModal({ isOpen = false, onClose = () => { } }: SignupModalProps) {
+export default function RegisterModal({ isOpen = false, onClose = () => { }, onSignup = () => { } }: SignupModalProps) {
 	const onFinish = (values: any) => {
-		console.log('Received values of form: ', values);
+		const { mail, name, password, phoneNumber, position } = values
+		signup({ mail, name, password, phoneNumber, position })
 	};
 	const title = <img src="/icons/svg/Logo.svg" className="w-[180px]"></img>
 
@@ -41,8 +41,6 @@ export default function RegisterModal({ isOpen = false, onClose = () => { } }: S
 				<h4 className="text-h4 mb-[24px]">регистрация кабинета</h4>
 				<Form
 					name="register-form"
-					className="login-form"
-					initialValues={{ remember: true }}
 					onFinish={onFinish}
 					layout='vertical'
 					requiredMark={false}
@@ -61,16 +59,14 @@ export default function RegisterModal({ isOpen = false, onClose = () => { } }: S
 						rules={[{ required: true, message: 'Пожалуйста, выберите вашу позицию' }]}
 					>
 						<Select placeholder="Виберите из списка" className='customize-select' >
-							<Option value="male">Male</Option>
-							<Option value="female">Female</Option>
-							<Option value="other">Other</Option>
+							{positions.map((position) => <Option value={position.value} key={position.value}>{position.label}</Option>)}
 						</Select>
 					</Form.Item>
 
 					<label className='text-[24px] font-[600] mb-[20px] block'>Контактные данные</label>
 					<Form.Item required>
 						<Form.Item
-							name="email"
+							name="mail"
 							rules={[{ required: true, message: "Введите адрес электронной почты, пожалуйста", type: 'email' }]}
 							style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
 						>
@@ -78,7 +74,7 @@ export default function RegisterModal({ isOpen = false, onClose = () => { } }: S
 						</Form.Item>
 
 						<Form.Item
-							name="telephone"
+							name="phoneNumber"
 							rules={[{ required: true, message: "Введите номер телефона, пожалуйста" }]}
 							style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' }}
 						>

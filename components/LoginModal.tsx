@@ -4,6 +4,7 @@ import { Modal, Form, Input } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
 import FillButton from './FillButton';
+import { login } from '@/app/backend_apis';
 interface LoginModalProps {
 	isOpen?: boolean;
 	onClose?: () => void;
@@ -12,6 +13,8 @@ interface LoginModalProps {
 export default function LoginModal({ isOpen = false, onClose = () => { } }: LoginModalProps) {
 	const router = useRouter();
 	const onFinish = (values: any) => {
+		const { mail, password } = values
+		login({ mail, password })
 	};
 
 	const title = <img src="/icons/svg/Logo.svg" className="w-[180px]" />
@@ -35,7 +38,7 @@ export default function LoginModal({ isOpen = false, onClose = () => { } }: Logi
 				clearOnDestroy={true}
 			>
 				<Form.Item
-					name="email"
+					name="mail"
 					rules={[{ required: true, message: 'Пожалуйста, введите свою почту!', type: "email" }]}
 				>
 					<Input placeholder="Почта" className='p-[12px] text-[16px] rounded-[8px]' />

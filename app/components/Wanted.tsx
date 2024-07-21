@@ -1,30 +1,18 @@
 import { useState } from "react";
-import RegisterModal from "@/components/RegisterModal";
-import LoginModal from "@/components/LoginModal";
+import RegisterModal from "./RegisterModal";
 import FillButton from "@/components/FillButton";
-import FullWidthBtn from "@/components/FullWidthBtn";
 
 export default function Wanted() {
-	const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 	const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
-
-	const openLoginModal = () => {
-		setIsLoginModalOpen(true);
-		setIsSignupModalOpen(false);
-	};
-
-	const closeLoginModal = () => {
-		setIsLoginModalOpen(false);
-	};
 
 	const openSignupModal = () => {
 		setIsSignupModalOpen(true);
-		setIsLoginModalOpen(false);
 	};
 
 	const closeSignupModal = () => {
 		setIsSignupModalOpen(false);
 	};
+
 	return (
 		<div className="px-[16px]">
 			<div className="max-w-[1200px] md:py-[120px] pt-[16px] pb-[24px] mx-auto">
