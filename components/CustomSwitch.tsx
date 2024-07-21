@@ -1,12 +1,12 @@
 'use client'
 import { useState } from "react"
 
-type CustomSwitchProps = { option1?: string, option2?: string, onSwitchChange?: (v: string) => void }
+type CustomSwitchProps = { option1?: string, option2?: string, selectedValue?: string, onSwitchChange?: (v: string) => void }
 
-export default function CustomSwitch({ option1 = "", option2 = "", onSwitchChange = () => { }, ...props }: CustomSwitchProps & React.HTMLAttributes<HTMLDivElement>) {
+export default function CustomSwitch({ option1 = "", option2 = "", selectedValue = "", onSwitchChange = () => { }, ...props }: CustomSwitchProps & React.HTMLAttributes<HTMLDivElement>) {
     const selectedClass = "bg-white rounded-full shadow-md"
     const commonClass = "px-[12px] py-[8px] text-[18px] font-semibold"
-    const [selected, setSelected] = useState(option1)
+    const [selected, setSelected] = useState(selectedValue)
     const { className } = props
 
     const handleClick = (option: string): void => {

@@ -5,6 +5,7 @@ import Stepper from "../Registration/Stepper"
 import ChooseHotelType from "./components/hotel-type"
 import { toast } from "react-toastify"
 import WriteAddress from "./components/address"
+import GeneralInformation from "./components/general-info"
 
 type RegisterStep = 'hotel-type' | 'address' | 'general-info' | 'photo' | 'room-category' | 'tariff'
 export default function RegisterPage() {
@@ -55,7 +56,7 @@ export default function RegisterPage() {
                 <Stepper StepsData={steps} currentIndex={0} />
                 {step === 'hotel-type' ? <div><ChooseHotelType onChoose={setHotelType} onNext={handleNextFromHotelType} /></div> : null}
                 {step === 'address' ? <div className="md:mt-[32px] mt-[48px]"><WriteAddress onNext={handleNextFromAddress} /></div> : null}
-                {step === 'general-info' ? <div></div> : null}
+                {step === 'general-info' ? <div className="md:mt-[32px] mt-[48px]"><GeneralInformation /></div> : null}
                 {step === 'photo' ? <div></div> : null}
                 {step === 'room-category' ? <div></div> : null}
                 {step === 'tariff' ? <div></div> : null}
