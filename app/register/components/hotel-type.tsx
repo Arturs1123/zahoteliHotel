@@ -5,14 +5,13 @@ import { getHotelTypesData } from '../../backend_apis';
 import FillButton from "@/components/FillButton";
 import { toast } from "react-toastify"
 
-export default function ChooseHotelType({ onChoose = () => { }, onNext = () => { }, onInputHotelNameChange = () => { } }: { onChoose?: (type: string) => void, onNext?: () => void, onInputHotelNameChange?: (v: string) => void }) {
+export default function ChooseHotelType({ onNext = () => { }, onInputHotelNameChange = () => { } }: { onChoose?: (type: string) => void, onNext?: ({ hotelType, hotelName }: { hotelType: string, hotelName: string }) => void, onInputHotelNameChange?: (v: string) => void }) {
 	const [hotelTypesData, setHotelTypesData] = useState<{ thumb: string, label: string }[]>([])
 	const [selectedType, setSelectedType] = useState<string | undefined>(undefined);
 	const [hotelName, setHotelName] = useState('')
 
 	const handleSelect = (type: string) => {
 		setSelectedType(type);
-		onChoose(type)
 	};
 
 	useEffect(() => {
@@ -24,7 +23,7 @@ export default function ChooseHotelType({ onChoose = () => { }, onNext = () => {
 		if (!selectedType || !hotelName) {
 			return toast.error('select hotel type and input hotel name')
 		}
-		onNext()
+		onNext({ hotelType: selectedType, hotelName })
 	}
 
 	const handleChange = (e: React.FormEvent<HTMLInputElement>) => {

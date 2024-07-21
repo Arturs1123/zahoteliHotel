@@ -25,7 +25,7 @@ const MapComponent: React.FC = () => {
   }, []);
 
   return (
-    <div id="map" style={{ width: '100%' }}></div>
+    <div id="map" style={{ width: '100%' }} className='rounded-lg'></div>
   );
 };
 
