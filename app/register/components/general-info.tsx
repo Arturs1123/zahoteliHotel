@@ -246,6 +246,8 @@ export default function GeneralInformation() {
     const [checkIn, setCheckIn] = useState<Dayjs | null>(null);
     const [checkOut, setCheckOut] = useState<Dayjs | null>(null);
     const [infrastuructures, setInfrastructures] = useState<string[]>([])
+    const [services, setServices] = useState<string[]>([])
+
     console.log(infrastuructures)
     const handleReceptionChange = ({ isAvailable, isWholeDay, from, to, checkIn, checkOut }: { isAvailable: boolean, isWholeDay: boolean, from: Dayjs | null, to: Dayjs | null, checkIn: Dayjs | null, checkOut: Dayjs | null }) => {
         setIsAvabilable(isAvailable)
@@ -262,6 +264,7 @@ export default function GeneralInformation() {
             <div className="md:mb-[16px] mb-[16px]"><StarSelector onStarChange={setStar} /></div>
             <div className="md:mb-[16px] mb-[16px]"><Reception onChange={handleReceptionChange} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/HotelInfrastructure.svg" title="Инфраструктура отеля" data={HotelInfrastructureData} onCheckBoxListChange={setInfrastructures} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/hotel-services.svg" title="Услуги в отеле" data={HotelInfrastructureData} onCheckBoxListChange={setServices} /></div>
             <div className="md:mb-[16px] mb-[16px]"><StarSelector onStarChange={setStar} /></div>
             <div className="md:mb-[16px] mb-[16px]"><StarSelector onStarChange={setStar} /></div>
             <div className="md:mb-[16px] mb-[16px]"><StarSelector onStarChange={setStar} /></div>
