@@ -11,35 +11,29 @@ export default function RegisterPage() {
 
     const [step, setStep] = useState<RegisterStep>('hotel-type')
 
-    const initialStepsData = [
+    const steps = [
         {
             title: "Что хотите сдавать?",
             value: "What do you want to submit?",
-            urlTo: "address"
         }, {
             title: "Адрес",
             value: "Address",
-            urlTo: "general-information"
 
         }, {
             title: "Общая информация",
             value: "general information",
-            urlTo: "photos"
-
         }, {
             title: "Фотографии",
             value: "Photos",
-            urlTo: "categories"
         }, {
             title: "Категории номеров",
             value: "Room categories",
-            urlTo: "rates"
         }, {
             title: "Тарифы",
             value: "Rates",
-            urlTo: ""
         },
     ]
+
     const [hotelType, setHotelType] = useState<string>('')
     const [hotelName, setHotelName] = useState<string>('')
     const [address, setAddress] = useState({})
@@ -58,7 +52,7 @@ export default function RegisterPage() {
     return (
         <div className="px-[16px]">
             <div className="max-w-[1200px] mx-auto md:pt-[32px] pt-[16px] md:pb-[80px] pb-[24px]">
-                <Stepper StepsData={initialStepsData} currentIndex={0} />
+                <Stepper StepsData={steps} currentIndex={0} />
                 {step === 'hotel-type' ? <div><ChooseHotelType onChoose={setHotelType} onNext={handleNextFromHotelType} /></div> : null}
                 {step === 'address' ? <div className="md:mt-[32px] mt-[48px]"><WriteAddress onNext={handleNextFromAddress} /></div> : null}
                 {step === 'general-info' ? <div></div> : null}
