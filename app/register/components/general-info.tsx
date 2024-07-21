@@ -247,6 +247,15 @@ export default function GeneralInformation() {
     const [checkOut, setCheckOut] = useState<Dayjs | null>(null);
     const [infrastuructures, setInfrastructures] = useState<string[]>([])
     const [services, setServices] = useState<string[]>([])
+    const [nutririons, setNutririons] = useState<string[]>([])
+    const [bars, setBars] = useState<string[]>([])
+    const [entertainmentsAndSports, setSports] = useState<string[]>([])
+    const [health, setHealth] = useState<string[]>([])
+    const [amentities, setAmentities] = useState<string[]>([])
+    const [conferenceFacilities, setConferenceFacilities] = useState<string[]>([])
+    const [seaAndBeach, setSeaAndBeach] = useState<string[]>([])
+    const [accesibleEnvironments, setAccesibleEnvironments] = useState<string[]>([])
+    const [staffSays, setStaffSays] = useState<string[]>([])
 
     console.log(infrastuructures)
     const handleReceptionChange = ({ isAvailable, isWholeDay, from, to, checkIn, checkOut }: { isAvailable: boolean, isWholeDay: boolean, from: Dayjs | null, to: Dayjs | null, checkIn: Dayjs | null, checkOut: Dayjs | null }) => {
@@ -265,15 +274,15 @@ export default function GeneralInformation() {
             <div className="md:mb-[16px] mb-[16px]"><Reception onChange={handleReceptionChange} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/HotelInfrastructure.svg" title="Инфраструктура отеля" data={HotelInfrastructureData} onCheckBoxListChange={setInfrastructures} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/hotel-services.svg" title="Услуги в отеле" data={HotelInfrastructureData} onCheckBoxListChange={setServices} /></div>
-            <div className="md:mb-[16px] mb-[16px]"><StarSelector onStarChange={setStar} /></div>
-            <div className="md:mb-[16px] mb-[16px]"><StarSelector onStarChange={setStar} /></div>
-            <div className="md:mb-[16px] mb-[16px]"><StarSelector onStarChange={setStar} /></div>
-            <div className="md:mb-[16px] mb-[16px]"><StarSelector onStarChange={setStar} /></div>
-            <div className="md:mb-[16px] mb-[16px]"><StarSelector onStarChange={setStar} /></div>
-            <div className="md:mb-[16px] mb-[16px]"><StarSelector onStarChange={setStar} /></div>
-            <div className="md:mb-[16px] mb-[16px]"><StarSelector onStarChange={setStar} /></div>
-            <div className="md:mb-[16px] mb-[16px]"><StarSelector onStarChange={setStar} /></div>
-
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/apple-one 1.svg" title="Питание" data={HotelInfrastructureData} onCheckBoxListChange={setNutririons} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/goblet-one 1.svg" title="Бар и ресторан" data={HotelInfrastructureData} onCheckBoxListChange={setBars} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/game-handle 2.svg" title="Развлечения и спорт" data={HotelInfrastructureData} onCheckBoxListChange={setSports} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/Like32.svg" title="Красота и здоровье" data={HotelInfrastructureData} onCheckBoxListChange={setHealth} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/ammentities.svg" title="Удобства в номерах" data={HotelInfrastructureData} onCheckBoxListChange={setAmentities} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/online-meeting 1.svg" title="Удобства в номерах" data={HotelInfrastructureData} onCheckBoxListChange={setConferenceFacilities} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/SeaBlue.svg" title="Море и пляж" data={HotelInfrastructureData} onCheckBoxListChange={setSeaAndBeach} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/wheelchair 1.svg" title="Доступная среда" data={HotelInfrastructureData} onCheckBoxListChange={setAccesibleEnvironments} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/people-speak 1.svg" title="Персонал говорит" data={HotelInfrastructureData} onCheckBoxListChange={setStaffSays} /></div>
         </div>
 
     )
