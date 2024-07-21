@@ -92,3 +92,12 @@ export async function login(credential: LoginCredentialType) {
     localStorage.setItem('hotel-owner-token', token)
     return toast.success(message)
 }
+
+export async function getHotelTypesData() {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotelTypes`)
+    if (!res.ok) {
+        const { error } = await res.json()
+        return toast.error(error)
+    }
+    return res.json()
+}

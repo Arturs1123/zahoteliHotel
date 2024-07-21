@@ -1,6 +1,8 @@
+import Image from "next/image"
+
 export default function FillButton(
-    { size = 'md', caption = '', onBtnClick = () => { }, isFullWidth = false, ...props }:
-        { size?: 'lg' | 'md' | 'sm', caption?: string, onBtnClick?: () => void, isFullWidth?: boolean } & React.HTMLAttributes<HTMLDivElement>
+    { size = 'md', caption = '', onBtnClick = () => { }, isFullWidth = false, withArrow = false, ...props }:
+        { size?: 'lg' | 'md' | 'sm', caption?: string, onBtnClick?: () => void, isFullWidth?: boolean, withArrow?: boolean } & React.HTMLAttributes<HTMLDivElement>
 ) {
     const properties = {
         lg: { rounded: '12px', px: '32px', py: '20px', fsize: 'md:text-h5 text-h6' },
@@ -11,6 +13,9 @@ export default function FillButton(
     const { rounded, px, py, fsize } = properties[size]
 
     return (
-        <button className={`${props.className ? props.className : ''} ${isFullWidth ? 'w-full' : ''} bg-accent text-white rounded-[${rounded}] px-[${px}] py-[${py}] ${fsize}`} onClick={onBtnClick}>{caption}</button>
+        <button className={`${props.className ? props.className : ''} ${isFullWidth ? 'w-full' : ''} bg-accent text-white rounded-[${rounded}] px-[${px}] py-[${py}] ${fsize} flex items-center`} onClick={onBtnClick}>
+            <span>{caption}</span>
+            {withArrow ? <Image src="/icons/svg/arrow-right-white.svg" width={20} height={20} alt="arrow" className="ml-[8px]" /> : null}
+        </button>
     )
 }
