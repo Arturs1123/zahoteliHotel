@@ -5,15 +5,19 @@ import { useState } from "react"
 
 export type RadioProps = {
     label?: string,
+    onRadioChange?: (v: boolean) => void
 }
 
 export default function Radio({
     label = '',
+    onRadioChange = () => { },
     ...props
 }: RadioProps & React.HTMLAttributes<HTMLDivElement>) {
     const [checked, setChecked] = useState<boolean>(false)
     const handleClick = () => {
-        setChecked(!checked)
+        const _checked = checked
+        setChecked(!_checked)
+        onRadioChange(!_checked)
     }
     return (
         <div className={`flex ${props.className ? props.className : ''}`} onClick={handleClick}>

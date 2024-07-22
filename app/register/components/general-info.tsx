@@ -12,6 +12,7 @@ import type { Dayjs } from "dayjs"
 import { useState } from "react";
 import Reception from "./reception";
 import CheckBoxList from "./CheckBoxList";
+import Internet from "./internet";
 
 const text = `
  Подключение самозанятых возможно при регистрации напрямую в Экстранете, а также через менеджеры каналов: Контур.Отель, Агаст (OtelMS), Бронируй Онлайн, BookingLite, Ecvi (Эделинк), Shelter, Trip Advance, U hotels, WuBook.
@@ -256,6 +257,11 @@ export default function GeneralInformation() {
     const [seaAndBeach, setSeaAndBeach] = useState<string[]>([])
     const [accesibleEnvironments, setAccesibleEnvironments] = useState<string[]>([])
     const [staffSays, setStaffSays] = useState<string[]>([])
+    const [isAvailableInHotel, setIsAvabilableInHotel] = useState(false)
+    const [isAvailableInRoom, setIsAvabilableInRoom] = useState(false)
+    const [isHotelWifiIncludedInPrice, setIsHotelWifiIncludedInPrice] = useState(false)
+    const [isRoomWifiIncludedInPrice, setIsRoomWifiIncludedInPrice] = useState(false)
+    const [wifiPrice, setWifiPrice] = useState('')
 
     console.log(infrastuructures)
     const handleReceptionChange = ({ isAvailable, isWholeDay, from, to, checkIn, checkOut }: { isAvailable: boolean, isWholeDay: boolean, from: Dayjs | null, to: Dayjs | null, checkIn: Dayjs | null, checkOut: Dayjs | null }) => {
@@ -265,6 +271,14 @@ export default function GeneralInformation() {
         setTo(to)
         setCheckIn(checkIn)
         setCheckOut(checkOut)
+    }
+
+    const handleInternetChange = ({ isAvailableInHotel, isAvailableInRoom, isHotelWifiIncludedInPrice, isRoomWifiIncludedInPrice, wifiPrice }: { isAvailableInHotel: boolean, isAvailableInRoom: boolean, isHotelWifiIncludedInPrice: boolean, isRoomWifiIncludedInPrice: boolean, wifiPrice: string }) => {
+        setIsAvabilableInHotel(isAvailableInHotel)
+        setIsAvabilableInRoom(isAvailableInRoom)
+        setIsHotelWifiIncludedInPrice(isHotelWifiIncludedInPrice)
+        setIsRoomWifiIncludedInPrice(isRoomWifiIncludedInPrice)
+        setWifiPrice(wifiPrice)
     }
 
     return (
@@ -278,6 +292,7 @@ export default function GeneralInformation() {
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/goblet-one 1.svg" title="Бар и ресторан" data={HotelInfrastructureData} onCheckBoxListChange={setBars} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/game-handle 2.svg" title="Развлечения и спорт" data={HotelInfrastructureData} onCheckBoxListChange={setSports} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/Like32.svg" title="Красота и здоровье" data={HotelInfrastructureData} onCheckBoxListChange={setHealth} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><Internet onChange={handleInternetChange} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/ammentities.svg" title="Удобства в номерах" data={HotelInfrastructureData} onCheckBoxListChange={setAmentities} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/online-meeting 1.svg" title="Удобства в номерах" data={HotelInfrastructureData} onCheckBoxListChange={setConferenceFacilities} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/SeaBlue.svg" title="Море и пляж" data={HotelInfrastructureData} onCheckBoxListChange={setSeaAndBeach} /></div>
