@@ -101,3 +101,12 @@ export async function getHotelTypesData() {
     }
     return res.json()
 }
+
+export async function getHotelTransportOptions() {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotel_transport`)
+    if (!res.ok) {
+        const { error } = await res.json()
+        return toast.error(error)
+    }
+    return res.json()
+}

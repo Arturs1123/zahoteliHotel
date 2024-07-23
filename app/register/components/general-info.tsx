@@ -13,6 +13,7 @@ import { useState } from "react";
 import Reception from "./reception";
 import CheckBoxList from "./CheckBoxList";
 import Internet from "./internet";
+import Transport from "./transport";
 
 const text = `
  Подключение самозанятых возможно при регистрации напрямую в Экстранете, а также через менеджеры каналов: Контур.Отель, Агаст (OtelMS), Бронируй Онлайн, BookingLite, Ecvi (Эделинк), Shelter, Trip Advance, U hotels, WuBook.
@@ -62,152 +63,7 @@ export default function GeneralInformation() {
         },
 
     ]
-    // const items: CollapseProps['items'] = [
-    //     // Stardom
-    //     {
-    //         key: '1',
-    //         label: <div><img src="/icons/svg/LC_Hotel/Stardom.svg" className="inline w-6 md:w-8" /> Звездность</div>,
-    //         children: <div className="w-full ">
-    //             <Radio.Group onChange={onChange} value={value} className="flex flex-col lg:flex-row lg:justify-between">
 
-    //                 <Radio value='five-star'>
-    //                     {[0, 0, 0, 0, 0].map((c, i) => <StarFilled key={i} style={{ fontSize: '20px', color: "#FFC226", marginRight: "6px" }} />)}
-    //                 </Radio>
-    //                 <Radio value='four-star'>
-    //                     {[0, 0, 0, 0].map((c, i) => <StarFilled key={i} style={{ fontSize: '20px', color: "#FFC226", marginRight: "6px" }} />)}
-
-    //                 </Radio>
-    //                 <Radio value='three-star'>
-    //                     {[0, 0, 0].map((c, i) => <StarFilled key={i} style={{ fontSize: '20px', color: "#FFC226", marginRight: "6px" }} />)}
-
-    //                 </Radio>
-    //                 <Radio value='two-star'>
-    //                     {[0, 0].map((c, i) => <StarFilled key={i} style={{ fontSize: '20px', color: "#FFC226", marginRight: "6px" }} />)}
-    //                 </Radio>
-    //                 <Radio value='one-star'>
-    //                     {[0].map((c, i) => <StarFilled key={i} style={{ fontSize: '20px', color: "#FFC226", marginRight: "6px" }} />)}
-    //                 </Radio>
-    //                 <Radio value="no-star">
-    //                     Без рейтинга
-    //                 </Radio>
-    //             </Radio.Group>
-    //         </div>
-    //     },
-
-    //     // Reseption
-    //     {
-    //         key: '2',
-    //         label: <div><img src="/icons/svg/LC_Hotel/Reseption.svg" className="inline w-6 md:w-8" /> Стойка регистрации</div>,
-    //         children:
-    //             <div className="flex flex-wrap justify-between">
-    //                 <div className="max-w-[650px] space-y-4">
-    //                     <p className="front-desk-operations text-lg">Работа стойки регистрации</p>
-
-    //                     <div className="choose-time grid md:grid-cols-3 gap-4">
-    //                         <CustomSwitch className="md:col-span-2" option1="Круглосуточно" option2="Укажу время" />
-    //                         <div className="grid grid-cols-2 gap-4">
-    //                             <Input placeholder="9:00" />
-    //                             <Input placeholder="24:00" />
-    //                         </div>
-    //                     </div>
-
-    //                     <div className="no-reception">
-    //                         <Checkbox />
-    //                         <span className="ml-2 text-base">Нет стойки регистрации</span>
-    //                     </div>
-    //                 </div>
-
-    //                 <div className="space-y-4">
-    //                     <p className="text-lg">Заезд и выезд</p>
-    //                     <div className="grid grid-cols-2 gap-4">
-    //                         <Input placeholder="15:00" />
-    //                         <Input placeholder="12:00" />
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //     },
-    //     // Hotel infrastructure
-    //     {
-    //         key: '3',
-    //         label: <div><img src="/icons/svg/LC_Hotel/HotelInfrastructure.svg" className="inline w-6 md:w-8" /> Инфраструктура отеля</div>,
-    //         children:
-    //             <div className="grid md:grid-cols-3">
-    //                 {HotelInfrastructureData.map((c, i) =>
-    //                     <div key={i} className="no-reception">
-    //                         <Checkbox />
-    //                         <span className="ml-2 text-base">{c.text}</span>
-    //                     </div>
-    //                 )}
-    //             </div>
-    //     },
-
-    //     // Internet
-    //     {
-    //         key: '4',
-    //         label: <div><img src="/icons/svg/LC_Hotel/Internet.svg" className="inline w-6 md:w-8" /> Интернет</div>,
-    //         children:
-    //             <div className="grid md:grid-cols-3">
-    //                 <div className="Wi-Fi-in-hotel space-y-4">
-    //                     <div>
-    //                         <span>Wi-Fi в отеле</span>
-    //                         <Switch />
-    //                     </div>
-    //                     <Radio.Group className="flex flex-col space-y-4">
-    //                         <Radio value="Included in the price">Входит в стоимость</Radio>
-    //                         <Radio value="Not included in the price">Не входит в стоимость</Radio>
-    //                     </Radio.Group>
-    //                 </div>
-    //                 <div className="Wi-Fi-in-rooms space-y-4">
-    //                     <div>
-    //                         <span>Wi-Fi в номерах</span>
-    //                         <Switch />
-    //                     </div>
-    //                     <Radio.Group className="flex flex-col space-y-4">
-    //                         <Radio value="Included in the price">Входит в стоимость</Radio>
-    //                         <Radio value="Not included in the price">Не входит в стоимость</Radio>
-    //                     </Radio.Group>
-    //                     <Input />
-    //                 </div>
-    //             </div>
-    //     },
-    //     // Hotel infrastructure
-    //     {
-    //         key: '5',
-    //         label: <div><img src="/icons/svg/LC_Hotel/Internet.svg" className="inline w-6 md:w-8" /> Интернет</div>,
-    //         children:
-    //             <div className="grid lg:grid-cols-3 gap-4">
-    //                 <div className="Wi-Fi-in-hotel space-y-4">
-    //                     <div>
-    //                         <span>Wi-Fi в отеле</span>
-    //                         <Switch />
-    //                     </div>
-    //                     <Radio.Group className="flex flex-col space-y-4">
-    //                         <Radio value="Included in the price">Входит в стоимость</Radio>
-    //                         <Radio value="Not included in the price">Не входит в стоимость</Radio>
-    //                     </Radio.Group>
-    //                 </div>
-    //                 <div className="Wi-Fi-in-rooms space-y-4">
-    //                     <div>
-    //                         <span>Wi-Fi в номерах</span>
-    //                         <Switch />
-    //                     </div>
-    //                     <Radio.Group className="flex flex-col space-y-4">
-    //                         <Radio value="Included in the price">Входит в стоимость</Radio>
-    //                         <Radio value="Not included in the price">Не входит в стоимость</Radio>
-    //                     </Radio.Group>
-    //                     <Input />
-    //                 </div>
-    //                 <div>
-    //                     {HotelInfrastructureData.map((c, i) =>
-    //                         <div key={i} className="no-reception">
-    //                             <Checkbox />
-    //                             <span className="ml-2 text-base">{c.text}</span>
-    //                         </div>
-    //                     )}
-    //                 </div>
-    //             </div>
-    //     },
-    //     // Hotel infrastructure
     //     {
     //         key: '6',
     //         label: <div><img src="/icons/svg/LC_Hotel/Pet.svg" className="inline w-6 md:w-8" /> Питомцы</div>,
@@ -262,6 +118,13 @@ export default function GeneralInformation() {
     const [isHotelWifiIncludedInPrice, setIsHotelWifiIncludedInPrice] = useState(false)
     const [isRoomWifiIncludedInPrice, setIsRoomWifiIncludedInPrice] = useState(false)
     const [wifiPrice, setWifiPrice] = useState('')
+    const [canTransport, setCanTransport] = useState(false)
+    const [canPark, setCanPark] = useState(false)
+    const [parkFeeIncludedInPrice, setParkFeeIncludedInPrice] = useState(false)
+    const [transportFeeIncludedInPrice, setTransportFeeIncludedInPrice] = useState(false)
+    const [transportPrice, setTransportPrice] = useState('')
+    const [transportOptions, setTransportOptions] = useState<string[]>([])
+
 
     console.log(infrastuructures)
     const handleReceptionChange = ({ isAvailable, isWholeDay, from, to, checkIn, checkOut }: { isAvailable: boolean, isWholeDay: boolean, from: Dayjs | null, to: Dayjs | null, checkIn: Dayjs | null, checkOut: Dayjs | null }) => {
@@ -281,6 +144,15 @@ export default function GeneralInformation() {
         setWifiPrice(wifiPrice)
     }
 
+    const handleTransportChange = ({ canTransport, canPark, parkFeeIncludedInPrice, transportFeeIncludedInPrice, transportPrice }: { canTransport: boolean, canPark: boolean, parkFeeIncludedInPrice: boolean, transportFeeIncludedInPrice: boolean, transportPrice: string, transportOptions: string[] }) => {
+        setCanPark(canPark)
+        setCanTransport(canTransport)
+        setParkFeeIncludedInPrice(parkFeeIncludedInPrice)
+        setTransportFeeIncludedInPrice(transportFeeIncludedInPrice)
+        setTransportPrice(transportPrice)
+        setTransportOptions(transportOptions)
+    }
+
     return (
         <div className="choose-hoteltype space-y-4 ">
             <p className="md:text-h3 text-h4 md:mb-[32px] mb-[20px]">Общая информация</p>
@@ -293,6 +165,7 @@ export default function GeneralInformation() {
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/game-handle 2.svg" title="Развлечения и спорт" data={HotelInfrastructureData} onCheckBoxListChange={setSports} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/Like32.svg" title="Красота и здоровье" data={HotelInfrastructureData} onCheckBoxListChange={setHealth} /></div>
             <div className="md:mb-[16px] mb-[16px]"><Internet onChange={handleInternetChange} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><Transport onChange={handleTransportChange} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/ammentities.svg" title="Удобства в номерах" data={HotelInfrastructureData} onCheckBoxListChange={setAmentities} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/online-meeting 1.svg" title="Удобства в номерах" data={HotelInfrastructureData} onCheckBoxListChange={setConferenceFacilities} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/SeaBlue.svg" title="Море и пляж" data={HotelInfrastructureData} onCheckBoxListChange={setSeaAndBeach} /></div>
