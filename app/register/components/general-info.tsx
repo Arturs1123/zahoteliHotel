@@ -15,6 +15,7 @@ import CheckBoxList from "./CheckBoxList";
 import Internet from "./internet";
 import Transport from "./transport";
 import ForChildren from "./forChildren";
+import PetOption from "./petOption";
 
 const text = `
  Подключение самозанятых возможно при регистрации напрямую в Экстранете, а также через менеджеры каналов: Контур.Отель, Агаст (OtelMS), Бронируй Онлайн, BookingLite, Ecvi (Эделинк), Shelter, Trip Advance, U hotels, WuBook.
@@ -127,8 +128,8 @@ export default function GeneralInformation() {
     const [transportOptions, setTransportOptions] = useState<string[]>([])
     const [childrenAllowed, setChildrenAllowed] = useState<boolean>(false)
     const [childrenOptions, setChildrenOptions] = useState<string[]>([])
+    const [petAllowed, setPetAllowed] = useState<boolean>(false)
 
-    console.log(infrastuructures)
     const handleReceptionChange = ({ isAvailable, isWholeDay, from, to, checkIn, checkOut }: { isAvailable: boolean, isWholeDay: boolean, from: Dayjs | null, to: Dayjs | null, checkIn: Dayjs | null, checkOut: Dayjs | null }) => {
         setIsAvabilable(isAvailable)
         setIsWholeDay(isWholeDay)
@@ -160,6 +161,10 @@ export default function GeneralInformation() {
         setChildrenOptions(childrenOptions)
     }
 
+    const handlePetOptionChange = (allowed: boolean) => {
+        setPetAllowed(petAllowed)
+    }
+
     return (
         <div className="choose-hoteltype space-y-4 ">
             <p className="md:text-h3 text-h4 md:mb-[32px] mb-[20px]">Общая информация</p>
@@ -173,6 +178,7 @@ export default function GeneralInformation() {
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/Like32.svg" title="Красота и здоровье" data={HotelInfrastructureData} onCheckBoxListChange={setHealth} /></div>
             <div className="md:mb-[16px] mb-[16px]"><Internet onChange={handleInternetChange} /></div>
             <div className="md:mb-[16px] mb-[16px]"><Transport onChange={handleTransportChange} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><PetOption onChange={handlePetOptionChange} /></div>
             <div className="md:mb-[16px] mb-[16px]"><ForChildren onChange={handleForChildrenChange} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/ammentities.svg" title="Удобства в номерах" data={HotelInfrastructureData} onCheckBoxListChange={setAmentities} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/online-meeting 1.svg" title="Удобства в номерах" data={HotelInfrastructureData} onCheckBoxListChange={setConferenceFacilities} /></div>
