@@ -28,7 +28,10 @@ export default function InternetReadMode({ data }: { data?: InternetType }) {
                             {data?.wifiInHotel.available ? <p className="text-btn mb-[16px]">Wi-Fi в отеле</p> : <p className="text-btn text-custom-gray mb-[16px]">Wi-Fi в отеле отсутствует</p>}
                             {data?.wifiInHotel.includedInThePrice ? <p className="text-p3">Входит в стоимость</p> : <p className="text-p3">не включено в цену</p>}
                         </div>
-                        <div></div>
+                        <div>
+                            {data?.wifiInRoom.available ? <p className="text-btn mb-[16px]">Wi-Fi в номерах</p> : <p className="text-btn text-custom-gray mb-[16px]">В номере нет Wi-Fi.</p>}
+                            {data?.wifiInRoom.includedInThePrice ? <p className="text-p3">Входит в стоимость</p> : <p className="text-p3">не включено в цену</p>}
+                        </div>
                     </div> : null}
             </div>
         </div >

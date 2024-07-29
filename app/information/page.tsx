@@ -11,6 +11,7 @@ import ReaceptionReadMode from "./components/reception"
 import CheckBoxList from "../register/components/CheckBoxList"
 import { getAccessibleEnvironments, getAmentities, getBars, getBeautyAndHealth, getConferenceFacilities, getHotelStaffSays, getInfrastructures, getNutritions, getSeaAndBeachAllOptions, getServices, getSports } from "@/app/backend_apis";
 import InternetReadMode from "./components/internet"
+import TransportReadMode from "./components/transport"
 
 export type HotelInfoType = {
     address: {
@@ -196,6 +197,7 @@ export default function Information() {
                 <div className="md:mb-[16px] mb-[20px]"><CheckBoxList disable icon="/icons/svg/game-handle 2.svg" title="Развлечения и спорт" data={sportsAllOptions} defaultValues={hotelData?.entertainmentsAndSports} /></div>
                 <div className="md:mb-[16px] mb-[20px]"><CheckBoxList disable icon="/icons/svg/Like32.svg" title="Красота и здоровье" data={healthAllOptions} defaultValues={hotelData?.beautyAndHealth} /></div>
                 <div className="md:mb-[16px] mb-[20px]"><InternetReadMode data={hotelData?.internet} /></div>
+                <div className="md:mb-[16px] mb-[20px]"><TransportReadMode data={hotelData?.transport} /></div>
 
 
                 {/* <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/ammentities.svg" title="Удобства в номерах" data={amentitiesAllOptions} defaultValues={hotelData.am} /></div> */}
