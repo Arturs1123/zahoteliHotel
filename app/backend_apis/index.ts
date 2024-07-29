@@ -155,3 +155,12 @@ export async function getConferenceFacilities() {
     }
     return res.json()
 }
+
+export async function getAmentities() {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/roomAmenities`)
+    if (!res.ok) {
+        const { error } = await res.json()
+        return toast.error(error)
+    }
+    return res.json()
+}
