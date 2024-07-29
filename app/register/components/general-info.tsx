@@ -16,7 +16,7 @@ import Internet from "./internet";
 import Transport from "./transport";
 import ForChildren from "./forChildren";
 import PetOption from "./petOption";
-import { getAccessibleEnvironments, getAmentities, getBeautyAndHealth, getConferenceFacilities, getHotelStaffSays, getSeaAndBeachAllOptions } from "@/app/backend_apis";
+import { getAccessibleEnvironments, getAmentities, getBars, getBeautyAndHealth, getConferenceFacilities, getHotelStaffSays, getNutritions, getSeaAndBeachAllOptions, getServices, getSports } from "@/app/backend_apis";
 
 const text = `
  Подключение самозанятых возможно при регистрации напрямую в Экстранете, а также через менеджеры каналов: Контур.Отель, Агаст (OtelMS), Бронируй Онлайн, BookingLite, Ecvi (Эделинк), Shelter, Trip Advance, U hotels, WuBook.
@@ -106,9 +106,13 @@ export default function GeneralInformation() {
     const [checkIn, setCheckIn] = useState<Dayjs | null>(null);
     const [checkOut, setCheckOut] = useState<Dayjs | null>(null);
     const [infrastuructures, setInfrastructures] = useState<string[]>([])
+    const [servicesAllOptions, setServicesAllOptions] = useState<string[]>([])
     const [services, setServices] = useState<string[]>([])
-    const [nutririons, setNutririons] = useState<string[]>([])
+    const [nutritionsAllOptions, setNutritionsAllOptions] = useState<string[]>([])
+    const [nutritions, setNutritions] = useState<string[]>([])
+    const [barsAllOptions, setBarsAllOptions] = useState<string[]>([])
     const [bars, setBars] = useState<string[]>([])
+    const [sportsAllOptions, setSportsAllOptions] = useState<string[]>([])
     const [entertainmentsAndSports, setSports] = useState<string[]>([])
     const [healthAllOptions, setHealthAllOptions] = useState<string[]>([])
     const [health, setHealth] = useState<string[]>([])
@@ -197,6 +201,22 @@ export default function GeneralInformation() {
             .then(res => {
                 setHealthAllOptions(res.map((item: { label: string }) => item.label))
             })
+        getSports()
+            .then(res => {
+                setSportsAllOptions(res.map((item: { label: string }) => item.label))
+            })
+        getBars()
+            .then(res => {
+                setBarsAllOptions(res.map((item: { label: string }) => item.label))
+            })
+        getNutritions()
+            .then(res => {
+                setNutritionsAllOptions(res.map((item: { label: string }) => item.label))
+            })
+        getServices()
+            .then(res => {
+                setServicesAllOptions(res.map((item: { label: string }) => item.label))
+            })
     }, [])
 
     return (
@@ -205,10 +225,10 @@ export default function GeneralInformation() {
             <div className="md:mb-[16px] mb-[16px]"><StarSelector onStarChange={setStar} /></div>
             <div className="md:mb-[16px] mb-[16px]"><Reception onChange={handleReceptionChange} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/HotelInfrastructure.svg" title="Инфраструктура отеля" data={HotelInfrastructureData} onCheckBoxListChange={setInfrastructures} /></div>
-            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/hotel-services.svg" title="Услуги в отеле" data={HotelInfrastructureData} onCheckBoxListChange={setServices} /></div>
-            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/apple-one 1.svg" title="Питание" data={HotelInfrastructureData} onCheckBoxListChange={setNutririons} /></div>
-            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/goblet-one 1.svg" title="Бар и ресторан" data={HotelInfrastructureData} onCheckBoxListChange={setBars} /></div>
-            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/game-handle 2.svg" title="Развлечения и спорт" data={HotelInfrastructureData} onCheckBoxListChange={setSports} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/hotel-services.svg" title="Услуги в отеле" data={servicesAllOptions} onCheckBoxListChange={setServices} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/apple-one 1.svg" title="Питание" data={nutritionsAllOptions} onCheckBoxListChange={setNutritions} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/goblet-one 1.svg" title="Бар и ресторан" data={barsAllOptions} onCheckBoxListChange={setBars} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/game-handle 2.svg" title="Развлечения и спорт" data={sportsAllOptions} onCheckBoxListChange={setSports} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/Like32.svg" title="Красота и здоровье" data={healthAllOptions} onCheckBoxListChange={setHealth} /></div>
             <div className="md:mb-[16px] mb-[16px]"><Internet onChange={handleInternetChange} /></div>
             <div className="md:mb-[16px] mb-[16px]"><Transport onChange={handleTransportChange} /></div>

@@ -173,3 +173,39 @@ export async function getBeautyAndHealth() {
     }
     return res.json()
 }
+
+export async function getSports() {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/entertainmentAndSports`)
+    if (!res.ok) {
+        const { error } = await res.json()
+        return toast.error(error)
+    }
+    return res.json()
+}
+
+export async function getBars() {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotelBar`)
+    if (!res.ok) {
+        const { error } = await res.json()
+        return toast.error(error)
+    }
+    return res.json()
+}
+
+export async function getNutritions() {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotelNutrition`)
+    if (!res.ok) {
+        const { error } = await res.json()
+        return toast.error(error)
+    }
+    return res.json()
+}
+
+export async function getServices() {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotelService`)
+    if (!res.ok) {
+        const { error } = await res.json()
+        return toast.error(error)
+    }
+    return res.json()
+}
