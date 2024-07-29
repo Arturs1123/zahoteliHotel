@@ -7,13 +7,13 @@ import type { RadioChangeEvent } from 'antd';
 import CheckBoxItem from "./checkbox-item"
 import { getHotelTransportOptions } from "@/app/backend_apis"
 
-export default function Transport({ onChange = () => { } }: { onChange?: ({ canTransport, canPark, transportFeeIncludedInPrice, parkFeeIncludedInPrice, transportPrice }: { canTransport: boolean, canPark: boolean, transportFeeIncludedInPrice: boolean, parkFeeIncludedInPrice: boolean, transportPrice: string, transportOptions: string[] }) => void }) {
+export default function Transport({ onChange = () => { } }: { onChange?: ({ canTransport, canPark, transportFeeIncludedInPrice, parkFeeIncludedInPrice, transportPrice }: { canTransport: boolean, canPark: boolean, transportFeeIncludedInPrice: boolean, parkFeeIncludedInPrice: boolean, transportPrice: number, transportOptions: string[] }) => void }) {
     const [toggle, setToggle] = useState(false)
     const [canTransport, setCanTransport] = useState(false)
     const [canPark, setCanPark] = useState(false)
     const [transportFeeIncludedInPrice, setTransportFeeIncludedInPrice] = useState(false)
     const [parkFeeIncludedInPrice, setParkFeeIncludedInPrice] = useState(false)
-    const [transportPrice, setTransportPrice] = useState('')
+    const [transportPrice, setTransportPrice] = useState(0)
     const [transportOptions, setTransportOptions] = useState<string[]>([])
     const [transportAllOptions, setTransportAllOptions] = useState<string[]>([])
 
@@ -65,7 +65,7 @@ export default function Transport({ onChange = () => { } }: { onChange?: ({ canT
                                 <Radio value={true} className="mb-[16px]"><span className="text-p3">Входит в стоимость</span></Radio>
                                 <Radio value={false} className="mb-[16px]"><span className="text-p3">Не входит в стоимость</span></Radio>
                             </Radio.Group>
-                            <Input placeholder="Стоимость" className="p-[12px]" onChange={e => setTransportPrice(e.target.value)} value={transportPrice} />
+                            <Input placeholder="Стоимость" className="p-[12px]" onChange={e => setTransportPrice(parseInt(e.target.value))} value={transportPrice} />
                         </div>
                         <div className="md:w-[357px]">
                             {

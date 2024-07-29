@@ -11,9 +11,57 @@ import PetOption from "./petOption";
 import { getAccessibleEnvironments, getAmentities, getBars, getBeautyAndHealth, getConferenceFacilities, getHotelStaffSays, getInfrastructures, getNutritions, getSeaAndBeachAllOptions, getServices, getSports } from "@/app/backend_apis";
 import FillButton from "@/components/FillButton";
 
-export default function GeneralInformation({ onNext = () => { } }: { onNext?: () => void }) {
+export type GeneralDataType = {
+    star: number,
+    reception: {
+        isAvailable: boolean,
+        isWholeDay: boolean,
+        from: Dayjs | null,
+        to: Dayjs | null,
+    },
+    checkIn: Dayjs | null,
+    checkOut: Dayjs | null,
+    infrastuructures: string[],
+    services: string[],
+    nutritions: string[],
+    bars: string[],
+    entertainmentsAndSports: string[],
+    beautyAndHealth: string[],
+    internet: {
+        wifiInHotel: {
+            available: boolean,
+            includedInThePrice: boolean
+        },
+        wifiInRoom: {
+            available: boolean,
+            includedInThePrice: boolean
+        }
+    },
+    transport: {
+        parking: {
+            available: boolean,
+            includedInThePrice: boolean
+        },
+        transfer: {
+            available: boolean,
+            includedInThePrice: boolean,
+            price: number
+        }
+    },
+    conferenceFacilities: string[],
+    seaAndBeach: string[],
+    petsAllowed: boolean,
+    forChildren: {
+        possible: boolean,
+        services: string[]
+    },
+    accessibleEnvironments: string[],
+    staffSays: string[],
+}
 
-    const [star, setStar] = useState(0)
+export default function GeneralInformation({ onNext = () => { } }: { onNext?: (obj: GeneralDataType) => void }) {
+
+    const [star, setStar] = useState<number>(0)
     const [isAvailable, setIsAvabilable] = useState(false)
     const [isWholeDay, setIsWholeDay] = useState(false)
     const [from, setFrom] = useState<Dayjs | null>(null);
@@ -48,14 +96,14 @@ export default function GeneralInformation({ onNext = () => { } }: { onNext?: ()
     const [canPark, setCanPark] = useState(false)
     const [parkFeeIncludedInPrice, setParkFeeIncludedInPrice] = useState(false)
     const [transportFeeIncludedInPrice, setTransportFeeIncludedInPrice] = useState(false)
-    const [transportPrice, setTransportPrice] = useState('')
+    const [transportPrice, setTransportPrice] = useState(0)
     const [transportOptions, setTransportOptions] = useState<string[]>([])
     const [childrenAllowed, setChildrenAllowed] = useState<boolean>(false)
     const [childrenOptions, setChildrenOptions] = useState<string[]>([])
     const [petAllowed, setPetAllowed] = useState<boolean>(false)
     const [staffSaysAllOptions, setStaffSaysAllOptions] = useState<string[]>([])
-    const [accesibleEnvironments, setAccesibleEnvironments] = useState<string[]>([])
-    const [accesibleEnvironmentsAllOptions, setAccesibleEnvironmentsAllOptions] = useState<string[]>([])
+    const [accessibleEnvironments, setAccessibleEnvironments] = useState<string[]>([])
+    const [accessibleEnvironmentsAllOptions, setAccessibleEnvironmentsAllOptions] = useState<string[]>([])
 
     const handleReceptionChange = ({ isAvailable, isWholeDay, from, to, checkIn, checkOut }: { isAvailable: boolean, isWholeDay: boolean, from: Dayjs | null, to: Dayjs | null, checkIn: Dayjs | null, checkOut: Dayjs | null }) => {
         setIsAvabilable(isAvailable)
@@ -74,7 +122,7 @@ export default function GeneralInformation({ onNext = () => { } }: { onNext?: ()
         setWifiPrice(wifiPrice)
     }
 
-    const handleTransportChange = ({ canTransport, canPark, parkFeeIncludedInPrice, transportFeeIncludedInPrice, transportPrice }: { canTransport: boolean, canPark: boolean, parkFeeIncludedInPrice: boolean, transportFeeIncludedInPrice: boolean, transportPrice: string, transportOptions: string[] }) => {
+    const handleTransportChange = ({ canTransport, canPark, parkFeeIncludedInPrice, transportFeeIncludedInPrice, transportPrice }: { canTransport: boolean, canPark: boolean, parkFeeIncludedInPrice: boolean, transportFeeIncludedInPrice: boolean, transportPrice: number, transportOptions: string[] }) => {
         setCanPark(canPark)
         setCanTransport(canTransport)
         setParkFeeIncludedInPrice(parkFeeIncludedInPrice)
@@ -92,8 +140,57 @@ export default function GeneralInformation({ onNext = () => { } }: { onNext?: ()
         setPetAllowed(petAllowed)
     }
 
+
+
     const handleNextClick = () => {
-        onNext()
+        const generalData = {
+            star,
+            reception: {
+                isAvailable,
+                isWholeDay,
+                from,
+                to,
+            },
+            checkIn,
+            checkOut,
+            infrastuructures,
+            services,
+            nutritions,
+            bars,
+            entertainmentsAndSports,
+            beautyAndHealth: health,
+            internet: {
+                wifiInHotel: {
+                    available: isAvailableInHotel,
+                    includedInThePrice: isHotelWifiIncludedInPrice
+                },
+                wifiInRoom: {
+                    available: isAvailableInRoom,
+                    includedInThePrice: isRoomWifiIncludedInPrice
+                }
+            },
+            transport: {
+                parking: {
+                    available: canPark,
+                    includedInThePrice: parkFeeIncludedInPrice
+                },
+                transfer: {
+                    available: canTransport,
+                    includedInThePrice: transportFeeIncludedInPrice,
+                    price: transportPrice
+                }
+            },
+            conferenceFacilities,
+            seaAndBeach,
+            petsAllowed: petAllowed,
+            forChildren: {
+                possible: childrenAllowed,
+                services: childrenOptions
+            },
+            accessibleEnvironments,
+            staffSays,
+        }
+        onNext(generalData)
     }
 
     useEffect(() => {
@@ -107,7 +204,7 @@ export default function GeneralInformation({ onNext = () => { } }: { onNext?: ()
             })
         getAccessibleEnvironments()
             .then(res => {
-                setAccesibleEnvironmentsAllOptions(res.map((item: { label: string }) => item.label))
+                setAccessibleEnvironmentsAllOptions(res.map((item: { label: string }) => item.label))
             })
         getSeaAndBeachAllOptions()
             .then(res => {
@@ -161,7 +258,7 @@ export default function GeneralInformation({ onNext = () => { } }: { onNext?: ()
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/ammentities.svg" title="Удобства в номерах" data={amentitiesAllOptions} onCheckBoxListChange={setAmentities} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/online-meeting 1.svg" title="Удобства в номерах" data={conferenceFacilitiesAllOptions} onCheckBoxListChange={setConferenceFacilities} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/SeaBlue.svg" title="Море и пляж" data={seaAndBeachAllOptions} onCheckBoxListChange={setSeaAndBeach} /></div>
-            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/wheelchair 1.svg" title="Доступная среда" data={accesibleEnvironmentsAllOptions} onCheckBoxListChange={setAccesibleEnvironments} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/wheelchair 1.svg" title="Доступная среда" data={accessibleEnvironmentsAllOptions} onCheckBoxListChange={setAccessibleEnvironments} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/people-speak 1.svg" title="Персонал говорит" data={staffSaysAllOptions} onCheckBoxListChange={setStaffSays} /></div>
             <div className="flex justify-center">
                 <FillButton caption="Добавить фотографии" withArrow onBtnClick={handleNextClick} />
