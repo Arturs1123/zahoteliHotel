@@ -2,7 +2,7 @@ import { useState } from "react"
 import CollapseTitle from "./collapse-title"
 import CheckBoxItem from "./checkbox-item"
 
-export default function CheckBoxList({ title = '', icon = '', data = [], onCheckBoxListChange = () => { } }: { title?: string, icon?: string, data?: string[], onCheckBoxListChange?: (labels: string[]) => void }) {
+export default function CheckBoxList({ disable = false, title = '', icon = '', data = [], onCheckBoxListChange = () => { }, defaultValues = [] }: { disable?: boolean, title?: string, icon?: string, data?: string[], onCheckBoxListChange?: (labels: string[]) => void, defaultValues?: string[] }) {
     const [toggle, setToggle] = useState(false)
     const [labels, setLabels] = useState<string[]>([])
     const handelCheckChange = ({ label, checked }: { label: string, checked: boolean }) => {
@@ -26,7 +26,7 @@ export default function CheckBoxList({ title = '', icon = '', data = [], onCheck
                 {toggle ?
                     <div className="grid md:grid-cols-3 gap-[16px]">
                         {
-                            data.map((label, i) => <CheckBoxItem label={label} key={i} onCheckChange={handelCheckChange} defaultValue={labels.includes(label)} />)
+                            data.map((label, i) => <CheckBoxItem disable={disable} label={label} key={i} onCheckChange={handelCheckChange} defaultValue={defaultValues.includes(label)} />)
                         }
                     </div> : null}
             </div>

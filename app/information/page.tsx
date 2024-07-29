@@ -8,6 +8,8 @@ import { getHotelDetail } from "../backend_apis"
 import HotelMainInfo from "./components/hotel-main-info"
 import makeAddress, { AddressType } from "@/helper/makeAddress"
 import ReaceptionReadMode from "./components/reception"
+import CheckBoxList from "../register/components/CheckBoxList"
+import { getAccessibleEnvironments, getAmentities, getBars, getBeautyAndHealth, getConferenceFacilities, getHotelStaffSays, getInfrastructures, getNutritions, getSeaAndBeachAllOptions, getServices, getSports } from "@/app/backend_apis";
 
 export type HotelInfoType = {
     address: {
@@ -93,11 +95,68 @@ export type HotelInfoType = {
 }
 
 export default function Information() {
+    const [infrasturucturesAllOptions, setInfrastructuresAllOptions] = useState<string[]>([])
+    const [servicesAllOptions, setServicesAllOptions] = useState<string[]>([])
+    const [nutritionsAllOptions, setNutritionsAllOptions] = useState<string[]>([])
+    const [barsAllOptions, setBarsAllOptions] = useState<string[]>([])
+    const [sportsAllOptions, setSportsAllOptions] = useState<string[]>([])
+    const [healthAllOptions, setHealthAllOptions] = useState<string[]>([])
+    const [amentitiesAllOptions, setAmentitiesAllOptions] = useState<string[]>([])
+    const [conferenceFacilitiesAllOptions, setConferenceFacilitiesAllOptions] = useState<string[]>([])
+    const [seaAndBeachAllOptions, setSeaAndBeachAllOptions] = useState<string[]>([])
+    const [staffSaysAllOptions, setStaffSaysAllOptions] = useState<string[]>([])
+    const [accessibleEnvironmentsAllOptions, setAccessibleEnvironmentsAllOptions] = useState<string[]>([])
     const [hotelData, setHotelData] = useState<HotelInfoType | null>(null)
 
     useEffect(() => {
         getHotelDetail('66a7e26c6e6a667961b6c74d')
             .then(res => setHotelData(res))
+    }, [])
+    useEffect(() => {
+        getInfrastructures()
+            .then(res => {
+                setInfrastructuresAllOptions(res.map((item: { label: string }) => item.label))
+            })
+        getHotelStaffSays()
+            .then(res => {
+                setStaffSaysAllOptions(res.map((item: { label: string }) => item.label))
+            })
+        getAccessibleEnvironments()
+            .then(res => {
+                setAccessibleEnvironmentsAllOptions(res.map((item: { label: string }) => item.label))
+            })
+        getSeaAndBeachAllOptions()
+            .then(res => {
+                setSeaAndBeachAllOptions(res.map((item: { label: string }) => item.label))
+            })
+        getConferenceFacilities()
+            .then(res => {
+                setConferenceFacilitiesAllOptions(res.map((item: { label: string }) => item.label))
+            })
+        getAmentities()
+            .then(res => {
+                setAmentitiesAllOptions(res.map((item: { label: string }) => item.label))
+            })
+        getBeautyAndHealth()
+            .then(res => {
+                setHealthAllOptions(res.map((item: { label: string }) => item.label))
+            })
+        getSports()
+            .then(res => {
+                setSportsAllOptions(res.map((item: { label: string }) => item.label))
+            })
+        getBars()
+            .then(res => {
+                setBarsAllOptions(res.map((item: { label: string }) => item.label))
+            })
+        getNutritions()
+            .then(res => {
+                setNutritionsAllOptions(res.map((item: { label: string }) => item.label))
+            })
+        getServices()
+            .then(res => {
+                setServicesAllOptions(res.map((item: { label: string }) => item.label))
+            })
     }, [])
     const isApplicationAllowed = false
     const address = makeAddress(hotelData?.address as AddressType)
@@ -122,7 +181,12 @@ export default function Information() {
                         </span>)}
                     </div>
                 </div>
-                <ReaceptionReadMode data={hotelData?.reception} checkIn={hotelData?.checkIn} checkOut={hotelData?.checkOut} />
+                <div>
+                    <ReaceptionReadMode data={hotelData?.reception} checkIn={hotelData?.checkIn} checkOut={hotelData?.checkOut} />
+                </div>
+                <div className="md:mb-[16px] mb-[16px]">
+                    <CheckBoxList disable icon="/icons/svg/HotelInfrastructure.svg" title="Инфраструктура отеля" data={infrasturucturesAllOptions} defaultValues={hotelData?.infrastructures} />
+                </div>
             </div>
         </div>
     )
