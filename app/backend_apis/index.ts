@@ -218,3 +218,17 @@ export async function getInfrastructures() {
     }
     return res.json()
 }
+
+export async function uploadHotelThumb(thumbFile: File) {
+    const formData = new FormData()
+    formData.append('thumb', thumbFile)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotel/thumbnail`, {
+        method: 'POST',
+        body: formData
+    })
+    if (!res.ok) {
+        const { error } = await res.json()
+        return toast.error(error)
+    }
+    return res.json()
+}
