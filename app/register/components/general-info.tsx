@@ -14,6 +14,7 @@ import Reception from "./reception";
 import CheckBoxList from "./CheckBoxList";
 import Internet from "./internet";
 import Transport from "./transport";
+import ForChildren from "./forChildren";
 
 const text = `
  Подключение самозанятых возможно при регистрации напрямую в Экстранете, а также через менеджеры каналов: Контур.Отель, Агаст (OtelMS), Бронируй Онлайн, BookingLite, Ecvi (Эделинк), Shelter, Trip Advance, U hotels, WuBook.
@@ -124,7 +125,8 @@ export default function GeneralInformation() {
     const [transportFeeIncludedInPrice, setTransportFeeIncludedInPrice] = useState(false)
     const [transportPrice, setTransportPrice] = useState('')
     const [transportOptions, setTransportOptions] = useState<string[]>([])
-
+    const [childrenAllowed, setChildrenAllowed] = useState<boolean>(false)
+    const [childrenOptions, setChildrenOptions] = useState<string[]>([])
 
     console.log(infrastuructures)
     const handleReceptionChange = ({ isAvailable, isWholeDay, from, to, checkIn, checkOut }: { isAvailable: boolean, isWholeDay: boolean, from: Dayjs | null, to: Dayjs | null, checkIn: Dayjs | null, checkOut: Dayjs | null }) => {
@@ -153,6 +155,11 @@ export default function GeneralInformation() {
         setTransportOptions(transportOptions)
     }
 
+    const handleForChildrenChange = ({ childrenAllowed, childrenOptions }: { childrenAllowed: boolean, childrenOptions: string[] }) => {
+        setChildrenAllowed(childrenAllowed)
+        setChildrenOptions(childrenOptions)
+    }
+
     return (
         <div className="choose-hoteltype space-y-4 ">
             <p className="md:text-h3 text-h4 md:mb-[32px] mb-[20px]">Общая информация</p>
@@ -166,6 +173,7 @@ export default function GeneralInformation() {
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/Like32.svg" title="Красота и здоровье" data={HotelInfrastructureData} onCheckBoxListChange={setHealth} /></div>
             <div className="md:mb-[16px] mb-[16px]"><Internet onChange={handleInternetChange} /></div>
             <div className="md:mb-[16px] mb-[16px]"><Transport onChange={handleTransportChange} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><ForChildren onChange={handleForChildrenChange} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/ammentities.svg" title="Удобства в номерах" data={HotelInfrastructureData} onCheckBoxListChange={setAmentities} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/online-meeting 1.svg" title="Удобства в номерах" data={HotelInfrastructureData} onCheckBoxListChange={setConferenceFacilities} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/SeaBlue.svg" title="Море и пляж" data={HotelInfrastructureData} onCheckBoxListChange={setSeaAndBeach} /></div>
