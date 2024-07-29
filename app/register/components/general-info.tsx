@@ -9,13 +9,14 @@ import StarSelector from './star-selector';
 import dayjs from "dayjs"
 import type { Dayjs } from "dayjs"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Reception from "./reception";
 import CheckBoxList from "./CheckBoxList";
 import Internet from "./internet";
 import Transport from "./transport";
 import ForChildren from "./forChildren";
 import PetOption from "./petOption";
+import { getHotelStaffSays } from "@/app/backend_apis";
 
 const text = `
  Подключение самозанятых возможно при регистрации напрямую в Экстранете, а также через менеджеры каналов: Контур.Отель, Агаст (OtelMS), Бронируй Онлайн, BookingLite, Ecvi (Эделинк), Shelter, Trip Advance, U hotels, WuBook.
@@ -129,6 +130,7 @@ export default function GeneralInformation() {
     const [childrenAllowed, setChildrenAllowed] = useState<boolean>(false)
     const [childrenOptions, setChildrenOptions] = useState<string[]>([])
     const [petAllowed, setPetAllowed] = useState<boolean>(false)
+    const [staffSaysAllOptions, setStaffSaysAllOptions] = useState<string[]>([])
 
     const handleReceptionChange = ({ isAvailable, isWholeDay, from, to, checkIn, checkOut }: { isAvailable: boolean, isWholeDay: boolean, from: Dayjs | null, to: Dayjs | null, checkIn: Dayjs | null, checkOut: Dayjs | null }) => {
         setIsAvabilable(isAvailable)
@@ -165,6 +167,13 @@ export default function GeneralInformation() {
         setPetAllowed(petAllowed)
     }
 
+    useEffect(() => {
+        getHotelStaffSays()
+            .then(res => {
+                setStaffSaysAllOptions(res.map((item: { label: string }) => item.label))
+            })
+    }, [])
+
     return (
         <div className="choose-hoteltype space-y-4 ">
             <p className="md:text-h3 text-h4 md:mb-[32px] mb-[20px]">Общая информация</p>
@@ -184,7 +193,7 @@ export default function GeneralInformation() {
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/online-meeting 1.svg" title="Удобства в номерах" data={HotelInfrastructureData} onCheckBoxListChange={setConferenceFacilities} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/SeaBlue.svg" title="Море и пляж" data={HotelInfrastructureData} onCheckBoxListChange={setSeaAndBeach} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/wheelchair 1.svg" title="Доступная среда" data={HotelInfrastructureData} onCheckBoxListChange={setAccesibleEnvironments} /></div>
-            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/people-speak 1.svg" title="Персонал говорит" data={HotelInfrastructureData} onCheckBoxListChange={setStaffSays} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/people-speak 1.svg" title="Персонал говорит" data={staffSaysAllOptions} onCheckBoxListChange={setStaffSays} /></div>
         </div>
 
     )
