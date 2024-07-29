@@ -44,7 +44,7 @@ export default function TransportReadMode({ data }: { data?: TransportType }) {
                             {data?.transfer.available ? <p className="text-btn mb-[16px]">транспорт доступен</p> : <p className="text-btn text-custom-gray mb-[16px]">транспорт недоступен</p>}
                             {data?.transfer.available ? data.transfer.includedInThePrice ? <p className="text-p3">Входит в стоимость</p> : <p className="text-p3">не включено в цену</p> : null}
                         </div>
-                        <div>
+                        <div className="md:mt-0 mt-[16px]">
                             {
                                 transportAllOptions.map((label, i) => <div className="mb-[16px]" key={i}>
                                     <CheckBoxItem label={label} disable defaultValue={data?.services.includes(label)} />
