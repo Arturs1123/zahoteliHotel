@@ -13,7 +13,7 @@ import Tariff from "./components/tariff"
 import { applyHotelProperty } from "../backend_apis"
 
 export type ApplyDataType = {
-    hotelTypes: string,
+    hotelType: string,
     hotelTitle: string,
     address: { country: string, region: string, city: string, street: string, house: string, building: string },
     thumbs: string[],
@@ -101,7 +101,7 @@ export default function RegisterPage() {
 
     const handleApply = () => {
         const applyData: ApplyDataType = {
-            hotelTypes: hotelType,
+            hotelType: hotelType,
             hotelTitle: hotelName,
             address: address,
             thumbs: photos,
