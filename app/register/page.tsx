@@ -50,13 +50,17 @@ export default function RegisterPage() {
         setStep('general-info')
     }
 
+    const handleNextFromGeneralInfo = () => {
+        setStep('photo')
+    }
+
     return (
         <div className="px-[16px]">
             <div className="max-w-[1200px] mx-auto md:pt-[32px] pt-[16px] md:pb-[80px] pb-[24px]">
                 <Stepper StepsData={steps} currentIndex={0} />
                 {step === 'hotel-type' ? <div><ChooseHotelType onChoose={setHotelType} onNext={handleNextFromHotelType} /></div> : null}
                 {step === 'address' ? <div className="md:mt-[32px] mt-[48px]"><WriteAddress onNext={handleNextFromAddress} /></div> : null}
-                {step === 'general-info' ? <div className="md:mt-[32px] mt-[48px]"><GeneralInformation /></div> : null}
+                {step === 'general-info' ? <div className="md:mt-[32px] mt-[48px]"><GeneralInformation onNext={handleNextFromGeneralInfo} /></div> : null}
                 {step === 'photo' ? <div></div> : null}
                 {step === 'room-category' ? <div></div> : null}
                 {step === 'tariff' ? <div></div> : null}

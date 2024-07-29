@@ -1,14 +1,6 @@
 'use client'
-import CollapseContainer, { CollapseTitle } from "@/components/CollapseContainer";
-import CustomSwitch from "@/components/CustomSwitch";
-import { AppleOutlined, StarFilled, StarTwoTone } from "@ant-design/icons";
-import type { CollapseProps } from 'antd';
-import { Card, Radio, Input, Button, Collapse, Checkbox, Switch } from "antd"
-import type { RadioChangeEvent } from 'antd';
 import StarSelector from './star-selector';
-import dayjs from "dayjs"
 import type { Dayjs } from "dayjs"
-
 import { useEffect, useState } from "react";
 import Reception from "./reception";
 import CheckBoxList from "./CheckBoxList";
@@ -19,7 +11,7 @@ import PetOption from "./petOption";
 import { getAccessibleEnvironments, getAmentities, getBars, getBeautyAndHealth, getConferenceFacilities, getHotelStaffSays, getInfrastructures, getNutritions, getSeaAndBeachAllOptions, getServices, getSports } from "@/app/backend_apis";
 import FillButton from "@/components/FillButton";
 
-export default function GeneralInformation() {
+export default function GeneralInformation({ onNext = () => { } }: { onNext?: () => void }) {
 
     const [star, setStar] = useState(0)
     const [isAvailable, setIsAvabilable] = useState(false)
@@ -101,7 +93,7 @@ export default function GeneralInformation() {
     }
 
     const handleNextClick = () => {
-
+        onNext()
     }
 
     useEffect(() => {
