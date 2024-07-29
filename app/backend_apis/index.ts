@@ -209,3 +209,12 @@ export async function getServices() {
     }
     return res.json()
 }
+
+export async function getInfrastructures() {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotelInfrastructure`)
+    if (!res.ok) {
+        const { error } = await res.json()
+        return toast.error(error)
+    }
+    return res.json()
+}

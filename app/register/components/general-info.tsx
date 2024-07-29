@@ -16,87 +16,10 @@ import Internet from "./internet";
 import Transport from "./transport";
 import ForChildren from "./forChildren";
 import PetOption from "./petOption";
-import { getAccessibleEnvironments, getAmentities, getBars, getBeautyAndHealth, getConferenceFacilities, getHotelStaffSays, getNutritions, getSeaAndBeachAllOptions, getServices, getSports } from "@/app/backend_apis";
+import { getAccessibleEnvironments, getAmentities, getBars, getBeautyAndHealth, getConferenceFacilities, getHotelStaffSays, getInfrastructures, getNutritions, getSeaAndBeachAllOptions, getServices, getSports } from "@/app/backend_apis";
+import FillButton from "@/components/FillButton";
 
-const text = `
- Подключение самозанятых возможно при регистрации напрямую в Экстранете, а также через менеджеры каналов: Контур.Отель, Агаст (OtelMS), Бронируй Онлайн, BookingLite, Ecvi (Эделинк), Shelter, Trip Advance, U hotels, WuBook.
-`;
 export default function GeneralInformation() {
-    const [value, setValue] = useState(1);
-    const onChange = (e: RadioChangeEvent) => {
-        console.log('radio checked', e.target.value);
-        setValue(e.target.value);
-    };
-    const HotelInfrastructureData = [
-        "Банкомат", "Bicycles for rent", "Вертолетная площадка", "SPA center", "Водные виды спорта", "Helipad", "Горные лыжи", "Aquapark", "Каток",
-        "Лес рядом", "Water sports", "Бильярдный клуб", "Theater", "Парк аттракционов"
-    ]
-
-    const ForChildrenData = [
-        {
-            "value": "Playground",
-            "text": "Детская площадка",
-        }, {
-            "value": "High chair for child",
-            "text": "Высокий стул для ребенка",
-        }, {
-            "value": "Children's potty",
-            "text": "Детский горшок",
-        }, {
-            "value": "Protective covers on sockets",
-            "text": "Защитные крышки на розетках",
-        }, {
-            "value": "Playpen bed",
-            "text": "Кровать-манеж",
-        }, {
-            "value": "Chair for babies",
-            "text": "Стульчик для кормления",
-        }, {
-            "value": "Cot",
-            "text": "Детская кроватка",
-        }, {
-            "value": "Window protection",
-            "text": "Защита на окнах",
-        }, {
-            "value": "Games/toys for children",
-            "text": "Игры/игрушки для детей",
-        }, {
-            "value": "Changing table",
-            "text": "Пеленальный стол",
-        },
-
-    ]
-
-    //     {
-    //         key: '6',
-    //         label: <div><img src="/icons/svg/LC_Hotel/Pet.svg" className="inline w-6 md:w-8" /> Питомцы</div>,
-    //         children:
-    //             <div>
-    //                 <span>Можно с питомцами</span>
-    //                 <Switch />
-    //             </div>
-    //     },
-    //     // Hotel infrastructure
-    //     {
-    //         key: '7',
-    //         label: <div><img src="/icons/svg/LC_Hotel/ForChildren.svg" className="inline w-6 md:w-8" /> Детям</div>,
-    //         children:
-    //             <div>
-    //                 <div>
-    //                     <span>Можно с питомцами</span>
-    //                     <Switch />
-    //                 </div>
-    //                 <div className="grid lg:grid-cols-3">
-    //                     {HotelInfrastructureData.map((c, i) =>
-    //                         <div key={i} className="no-reception">
-    //                             <Checkbox />
-    //                             <span className="ml-2 text-base">{c.text}</span>
-    //                         </div>
-    //                     )}
-    //                 </div>
-    //             </div>
-    //     }
-    // ];
 
     const [star, setStar] = useState(0)
     const [isAvailable, setIsAvabilable] = useState(false)
@@ -105,6 +28,7 @@ export default function GeneralInformation() {
     const [to, setTo] = useState<Dayjs | null>(null);
     const [checkIn, setCheckIn] = useState<Dayjs | null>(null);
     const [checkOut, setCheckOut] = useState<Dayjs | null>(null);
+    const [infrasturucturesAllOptions, setInfrastructuresAllOptions] = useState<string[]>([])
     const [infrastuructures, setInfrastructures] = useState<string[]>([])
     const [servicesAllOptions, setServicesAllOptions] = useState<string[]>([])
     const [services, setServices] = useState<string[]>([])
@@ -176,7 +100,15 @@ export default function GeneralInformation() {
         setPetAllowed(petAllowed)
     }
 
+    const handleNextClick = () => {
+
+    }
+
     useEffect(() => {
+        getInfrastructures()
+            .then(res => {
+                setInfrastructuresAllOptions(res.map((item: { label: string }) => item.label))
+            })
         getHotelStaffSays()
             .then(res => {
                 setStaffSaysAllOptions(res.map((item: { label: string }) => item.label))
@@ -220,11 +152,11 @@ export default function GeneralInformation() {
     }, [])
 
     return (
-        <div className="choose-hoteltype space-y-4 ">
+        <div className="">
             <p className="md:text-h3 text-h4 md:mb-[32px] mb-[20px]">Общая информация</p>
             <div className="md:mb-[16px] mb-[16px]"><StarSelector onStarChange={setStar} /></div>
             <div className="md:mb-[16px] mb-[16px]"><Reception onChange={handleReceptionChange} /></div>
-            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/HotelInfrastructure.svg" title="Инфраструктура отеля" data={HotelInfrastructureData} onCheckBoxListChange={setInfrastructures} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/HotelInfrastructure.svg" title="Инфраструктура отеля" data={infrasturucturesAllOptions} onCheckBoxListChange={setInfrastructures} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/hotel-services.svg" title="Услуги в отеле" data={servicesAllOptions} onCheckBoxListChange={setServices} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/apple-one 1.svg" title="Питание" data={nutritionsAllOptions} onCheckBoxListChange={setNutritions} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/goblet-one 1.svg" title="Бар и ресторан" data={barsAllOptions} onCheckBoxListChange={setBars} /></div>
@@ -239,6 +171,9 @@ export default function GeneralInformation() {
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/SeaBlue.svg" title="Море и пляж" data={seaAndBeachAllOptions} onCheckBoxListChange={setSeaAndBeach} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/wheelchair 1.svg" title="Доступная среда" data={accesibleEnvironmentsAllOptions} onCheckBoxListChange={setAccesibleEnvironments} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/people-speak 1.svg" title="Персонал говорит" data={staffSaysAllOptions} onCheckBoxListChange={setStaffSays} /></div>
+            <div className="flex justify-center">
+                <FillButton caption="Добавить фотографии" withArrow onBtnClick={handleNextClick} />
+            </div>
         </div>
 
     )
