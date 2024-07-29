@@ -16,7 +16,7 @@ import Internet from "./internet";
 import Transport from "./transport";
 import ForChildren from "./forChildren";
 import PetOption from "./petOption";
-import { getHotelStaffSays } from "@/app/backend_apis";
+import { getAccessibleEnvironments, getHotelStaffSays } from "@/app/backend_apis";
 
 const text = `
  Подключение самозанятых возможно при регистрации напрямую в Экстранете, а также через менеджеры каналов: Контур.Отель, Агаст (OtelMS), Бронируй Онлайн, BookingLite, Ecvi (Эделинк), Shelter, Trip Advance, U hotels, WuBook.
@@ -114,7 +114,6 @@ export default function GeneralInformation() {
     const [amentities, setAmentities] = useState<string[]>([])
     const [conferenceFacilities, setConferenceFacilities] = useState<string[]>([])
     const [seaAndBeach, setSeaAndBeach] = useState<string[]>([])
-    const [accesibleEnvironments, setAccesibleEnvironments] = useState<string[]>([])
     const [staffSays, setStaffSays] = useState<string[]>([])
     const [isAvailableInHotel, setIsAvabilableInHotel] = useState(false)
     const [isAvailableInRoom, setIsAvabilableInRoom] = useState(false)
@@ -131,6 +130,8 @@ export default function GeneralInformation() {
     const [childrenOptions, setChildrenOptions] = useState<string[]>([])
     const [petAllowed, setPetAllowed] = useState<boolean>(false)
     const [staffSaysAllOptions, setStaffSaysAllOptions] = useState<string[]>([])
+    const [accesibleEnvironments, setAccesibleEnvironments] = useState<string[]>([])
+    const [accesibleEnvironmentsAllOptions, setAccesibleEnvironmentsAllOptions] = useState<string[]>([])
 
     const handleReceptionChange = ({ isAvailable, isWholeDay, from, to, checkIn, checkOut }: { isAvailable: boolean, isWholeDay: boolean, from: Dayjs | null, to: Dayjs | null, checkIn: Dayjs | null, checkOut: Dayjs | null }) => {
         setIsAvabilable(isAvailable)
@@ -172,6 +173,10 @@ export default function GeneralInformation() {
             .then(res => {
                 setStaffSaysAllOptions(res.map((item: { label: string }) => item.label))
             })
+        getAccessibleEnvironments()
+            .then(res => {
+                setAccesibleEnvironmentsAllOptions(res.map((item: { label: string }) => item.label))
+            })
     }, [])
 
     return (
@@ -192,7 +197,7 @@ export default function GeneralInformation() {
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/ammentities.svg" title="Удобства в номерах" data={HotelInfrastructureData} onCheckBoxListChange={setAmentities} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/online-meeting 1.svg" title="Удобства в номерах" data={HotelInfrastructureData} onCheckBoxListChange={setConferenceFacilities} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/SeaBlue.svg" title="Море и пляж" data={HotelInfrastructureData} onCheckBoxListChange={setSeaAndBeach} /></div>
-            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/wheelchair 1.svg" title="Доступная среда" data={HotelInfrastructureData} onCheckBoxListChange={setAccesibleEnvironments} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/wheelchair 1.svg" title="Доступная среда" data={accesibleEnvironmentsAllOptions} onCheckBoxListChange={setAccesibleEnvironments} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/people-speak 1.svg" title="Персонал говорит" data={staffSaysAllOptions} onCheckBoxListChange={setStaffSays} /></div>
         </div>
 
