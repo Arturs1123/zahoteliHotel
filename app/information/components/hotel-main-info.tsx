@@ -10,7 +10,7 @@ export default function HotelMainInfo({ thumb = "", hotelType = "", hotelTitle =
                 <div className="flex justify-between items-center md:mb-[17px] mb-[4px]">
                     <span className="flex items-center">
                         <span className="md:text-p2 text-p4 text-custom-gray mr-[8px]">{hotelType}</span>
-                        <Rate count={star} defaultValue={star} disabled />
+                        <Rate count={star} value={star} disabled />
                     </span>
                     <span className="md:text-p2 text-p5 text-custom-gray">Отзывов пока нет</span>
                 </div>

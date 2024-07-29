@@ -181,12 +181,27 @@ export default function Information() {
                         </span>)}
                     </div>
                 </div>
-                <div>
+                <div className="md:mb-[16px] mb-[20px]">
                     <ReaceptionReadMode data={hotelData?.reception} checkIn={hotelData?.checkIn} checkOut={hotelData?.checkOut} />
                 </div>
-                <div className="md:mb-[16px] mb-[16px]">
+                <div className="md:mb-[16px] mb-[20px]">
                     <CheckBoxList disable icon="/icons/svg/HotelInfrastructure.svg" title="Инфраструктура отеля" data={infrasturucturesAllOptions} defaultValues={hotelData?.infrastructures} />
                 </div>
+                <div className="md:mb-[16px] mb-[20px]">
+                    <CheckBoxList disable icon="/icons/svg/hotel-services.svg" title="Услуги в отеле" data={servicesAllOptions} defaultValues={hotelData?.services} />
+                </div>
+                <div className="md:mb-[16px] mb-[20px]"><CheckBoxList disable icon="/icons/svg/apple-one 1.svg" title="Питание" data={nutritionsAllOptions} defaultValues={hotelData?.nutritions} /></div>
+                <div className="md:mb-[16px] mb-[20px]"><CheckBoxList disable icon="/icons/svg/goblet-one 1.svg" title="Бар и ресторан" data={barsAllOptions} defaultValues={hotelData?.bars} /></div>
+                <div className="md:mb-[16px] mb-[20px]"><CheckBoxList disable icon="/icons/svg/game-handle 2.svg" title="Развлечения и спорт" data={sportsAllOptions} defaultValues={hotelData?.entertainmentsAndSports} /></div>
+                <div className="md:mb-[16px] mb-[20px]"><CheckBoxList disable icon="/icons/svg/Like32.svg" title="Красота и здоровье" data={healthAllOptions} defaultValues={hotelData?.beautyAndHealth} /></div>
+
+
+
+                {/* <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/ammentities.svg" title="Удобства в номерах" data={amentitiesAllOptions} defaultValues={hotelData.am} /></div> */}
+                <div className="md:mb-[16px] mb-[20px]"><CheckBoxList disable icon="/icons/svg/online-meeting 1.svg" title="Удобства в номерах" data={conferenceFacilitiesAllOptions} defaultValues={hotelData?.conferenceFacilities} /></div>
+                <div className="md:mb-[16px] mb-[20px]"><CheckBoxList disable icon="/icons/svg/SeaBlue.svg" title="Море и пляж" data={seaAndBeachAllOptions} defaultValues={hotelData?.seaAndBeach} /></div>
+                <div className="md:mb-[16px] mb-[20px]"><CheckBoxList disable icon="/icons/svg/wheelchair 1.svg" title="Доступная среда" data={accessibleEnvironmentsAllOptions} defaultValues={hotelData?.accesibleEnvironments} /></div>
+                <div className="md:mb-[16px] mb-[20px]"><CheckBoxList disable icon="/icons/svg/people-speak 1.svg" title="Персонал говорит" data={staffSaysAllOptions} defaultValues={hotelData?.staffSays} /></div>
             </div>
         </div>
     )
