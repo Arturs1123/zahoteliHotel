@@ -22,6 +22,7 @@ export default function Header() {
             setIsAuthenticated(false)
             setName(undefined)
             setMail(undefined)
+            router.push('/')
         }
     }, [])
     const supporterPhoneNumber = '+7 900 900 90-90'
