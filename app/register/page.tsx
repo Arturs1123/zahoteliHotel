@@ -40,7 +40,7 @@ type RegisterStep = 'hotel-type' | 'address' | 'general-info' | 'photo' | 'room-
 export default function RegisterPage() {
 
     const [step, setStep] = useState<RegisterStep>('hotel-type')
-
+    const stepsArr = ['hotel-type', 'address', 'general-info', 'photo', 'room-category', 'tariff']
     const steps = [
         {
             title: "Что хотите сдавать?",
@@ -130,7 +130,7 @@ export default function RegisterPage() {
     return (
         <div className="px-[16px]">
             <div className="max-w-[1200px] mx-auto md:pt-[32px] pt-[16px] md:pb-[80px] pb-[24px]">
-                <Stepper StepsData={steps} currentIndex={0} />
+                <Stepper StepsData={steps} currentIndex={stepsArr.indexOf(step)} />
                 {step === 'hotel-type' ? <div><ChooseHotelType onChoose={setHotelType} onNext={handleNextFromHotelType} /></div> : null}
                 {step === 'address' ? <div className="md:mt-[32px] mt-[48px]"><WriteAddress onNext={handleNextFromAddress} /></div> : null}
                 {step === 'general-info' ? <div className="md:mt-[32px] mt-[48px]"><GeneralInformation onNext={handleNextFromGeneralInfo} /></div> : null}
