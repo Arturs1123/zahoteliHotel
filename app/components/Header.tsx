@@ -1,33 +1,29 @@
 import Link from 'next/link'
-import { jwtDecode } from "jwt-decode"
 import GhostButton from "@/components/GhostButton"
 import ProfileButton from "@/components/ProfileButton"
 import { useEffect, useState } from 'react'
 import LoginModal from '@/components/LoginModal'
 import MyProfileMenu from './MyProfileMenu'
+import decodedJWT, { DecodedJWTType } from '@/helper/decodedJWT'
 
-type JwtPayload = {
-    name: string
-    mail: string
-}
 export default function Header() {
     useEffect(() => {
-        const token = localStorage.getItem('hotel-owner-token')
-        if (token) {
-            const { name, mail } = jwtDecode(token) as JwtPayload
+        const decodedData: DecodedJWTType = decodedJWT()
+        if (decodedData.isAuthenticated) {
+            const { name, mail } = decodedData
             setIsAuthenticated(true)
             setName(name)
             setMail(mail)
         } else {
             setIsAuthenticated(false)
-            setName('')
-            setMail('')
+            setName(undefined)
+            setMail(undefined)
         }
     }, [])
     const supporterPhoneNumber = '+7 900 900 90-90'
     const [modalVisible, setModalVisible] = useState(false)
-    const [name, setName] = useState('')
-    const [mail, setMail] = useState('')
+    const [name, setName] = useState<string | undefined>()
+    const [mail, setMail] = useState<string | undefined>()
     const [hasNewEmail, setHasNewEmail] = useState(true)
     const [isAuthenticated, setIsAuthenticated] = useState(false)
 
