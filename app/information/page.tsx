@@ -13,6 +13,7 @@ import { getAccessibleEnvironments, getAmentities, getBars, getBeautyAndHealth, 
 import InternetReadMode from "./components/internet"
 import TransportReadMode from "./components/transport"
 import PetOptionReadMode from "./components/pet-options"
+import ForChildrenReadMode from "./components/for-children"
 
 export type HotelInfoType = {
     address: {
@@ -200,6 +201,7 @@ export default function Information() {
                 <div className="md:mb-[16px] mb-[20px]"><InternetReadMode data={hotelData?.internet} /></div>
                 <div className="md:mb-[16px] mb-[20px]"><TransportReadMode data={hotelData?.transport} /></div>
                 <div className="md:mb-[16px] mb-[20px]"><PetOptionReadMode petsAllowed={hotelData?.petsAllowed} /></div>
+                <div className="md:mb-[16px] mb-[20px]"><ForChildrenReadMode data={hotelData?.forChildren} /></div>
 
                 {/* <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/ammentities.svg" title="Удобства в номерах" data={amentitiesAllOptions} defaultValues={hotelData.am} /></div> */}
                 <div className="md:mb-[16px] mb-[20px]"><CheckBoxList disable icon="/icons/svg/online-meeting 1.svg" title="Удобства в номерах" data={conferenceFacilitiesAllOptions} defaultValues={hotelData?.conferenceFacilities} /></div>
