@@ -91,6 +91,7 @@ export async function login(credential: LoginCredentialType) {
     }
     const { message, token } = await res.json()
     localStorage.setItem('hotel-owner-token', token)
+    window.location.href = "/"
     return toast.success(message)
 }
 

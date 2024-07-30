@@ -1,12 +1,24 @@
 import { useState } from "react";
 import Clamp from 'react-multiline-clamp';
 import MyProfileButton from "./MyProfileButton";
+import { useRouter } from 'next/navigation';
 
 export default function MyProfileMenu({ name = '', mail = '', hasNewEmail = true }: { name?: string, mail?: string, hasNewEmail?: boolean }) {
+    const router = useRouter();
+
     const [toggle, setToggle] = useState<boolean>(false)
 
+    const handleClickWorkspace = () => {
+        router.push('/information')
+    }
+
+    const handleClickLogout = () => {
+        localStorage.removeItem('hotel-owner-token')
+        window.location.href = "/"
+    }
+
     return (
-        <div onClick={() => setToggle(!toggle)} className="cursor-pointer">
+        <div onClick={() => setToggle(!toggle)} className="cursor-pointer relative">
             <div className="flex items-center">
                 <MyProfileButton hasNewEmail={hasNewEmail} />
                 <div className="lg:flex hidden items-center ml-[16px]">
@@ -24,7 +36,11 @@ export default function MyProfileMenu({ name = '', mail = '', hasNewEmail = true
                     <img src={toggle ? '/icons/svg/collapse-up.svg' : '/icons/svg/collapse-down.svg'} className="w-[20px] h-auto" />
                 </div>
             </div>
-            <div></div>
+            {toggle ? <div className="w-[300px] bg-[#F9F9F9] absolute md:top-[74px] md:top-[10px] p-[10px] shadow-md right-0  rounded-b-lg text-custom-gray text-p3 text-right">
+                <p className=" cursor-pinter p-[10px] border-b" onClick={handleClickLogout}>выйти</p>
+                <p className=" cursor-pinter p-[10px]" onClick={handleClickWorkspace}>управление</p>
+            </div> : null}
+
         </ div >
     )
 }

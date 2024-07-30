@@ -13,7 +13,7 @@ export default function FillButton(
     const { rounded, px, py, fsize } = properties[size]
 
     return (
-        <button className={`${props.className ? props.className : ''} ${isFullWidth ? 'w-full' : ''} bg-accent text-white rounded-[${rounded}] px-[${px}] py-[${py}] ${fsize} flex items-center`} onClick={onBtnClick}>
+        <button className={`${props.className ? props.className : ''} ${isFullWidth ? 'w-full' : ''} bg-accent text-white rounded-[${rounded}] px-[${px}] py-[${py}] ${fsize} flex items-center justify-center`} onClick={onBtnClick}>
             <span>{caption}</span>
             {withArrow ? <Image src="/icons/svg/arrow-right-white.svg" width={20} height={20} alt="arrow" className="ml-[8px]" /> : null}
         </button>

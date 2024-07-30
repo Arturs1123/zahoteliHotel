@@ -23,10 +23,6 @@ export default function RegisterModal({ isOpen = false, onClose = () => { }, onS
 	};
 	const title = <img src="/icons/svg/Logo.svg" className="w-[180px]"></img>
 
-	const handleSubmit = (values: { username: string; password: string; email: string }) => {
-		console.log('Signup values:', values);
-		onClose();
-	};
 	return (
 
 		<Modal

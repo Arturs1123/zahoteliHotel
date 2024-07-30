@@ -2,20 +2,23 @@
 import React from 'react';
 import { Modal, Form, Input } from 'antd';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation'
 import FillButton from './FillButton';
 import { login } from '@/app/backend_apis';
 interface LoginModalProps {
-	isOpen?: boolean;
-	onClose?: () => void;
+	isOpen?: boolean
+	onClose?: () => void
+	onClickGotoRegister?: () => void
 }
 
-export default function LoginModal({ isOpen = false, onClose = () => { } }: LoginModalProps) {
-	const router = useRouter();
+export default function LoginModal({ isOpen = false, onClose = () => { }, onClickGotoRegister = () => { } }: LoginModalProps) {
 	const onFinish = (values: any) => {
 		const { mail, password } = values
 		login({ mail, password })
 	};
+
+	const handleGotoRegister = () => {
+		onClickGotoRegister()
+	}
 
 	const title = <img src="/icons/svg/Logo.svg" className="w-[180px]" />
 	return (
@@ -53,9 +56,14 @@ export default function LoginModal({ isOpen = false, onClose = () => { } }: Logi
 						className='p-[12px] text-[16px] rounded-[8px]'
 					/>
 				</Form.Item>
-				<Link className="text-p3 text-accent block mb-[20px]" href="/LC_hotel">
-					Не помню пароль
-				</Link>
+				<div className='flex justify-between'>
+					<Link className="text-p3 text-accent block mb-[20px]" href="/reset-password">
+						Не помню пароль
+					</Link>
+					<p className="text-p3 text-accent block mb-[20px] cursor-pointer" onClick={handleGotoRegister}>
+						перейти к регистрации
+					</p>
+				</div>
 				<FillButton caption='Войти' isFullWidth />
 			</Form>
 		</Modal>

@@ -3,10 +3,14 @@ import GhostButton from "@/components/GhostButton"
 import ProfileButton from "@/components/ProfileButton"
 import { useEffect, useState } from 'react'
 import LoginModal from '@/components/LoginModal'
+import RegisterModal from './RegisterModal'
 import MyProfileMenu from './MyProfileMenu'
 import decodedJWT, { DecodedJWTType } from '@/helper/decodedJWT'
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
+    const router = useRouter();
+
     useEffect(() => {
         const decodedData: DecodedJWTType = decodedJWT()
         if (decodedData.isAuthenticated) {
@@ -26,9 +30,18 @@ export default function Header() {
     const [mail, setMail] = useState<string | undefined>()
     const [hasNewEmail, setHasNewEmail] = useState(true)
     const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
 
     const handleShowLoginModal = () => {
         setModalVisible(true)
+    }
+    const closeSignupModal = () => {
+        setIsSignupModalOpen(false);
+    };
+
+    const handleClickGotoRegister = () => {
+        setModalVisible(false)
+        setIsSignupModalOpen(true)
     }
 
     return (
@@ -48,7 +61,8 @@ export default function Header() {
                     </>}
                 </div>
             </div>
-            <LoginModal isOpen={modalVisible} onClose={() => { setModalVisible(false) }} />
+            <LoginModal isOpen={modalVisible} onClose={() => { setModalVisible(false) }} onClickGotoRegister={handleClickGotoRegister} />
+            <RegisterModal isOpen={isSignupModalOpen} onClose={closeSignupModal} />
         </div>
     )
 }
