@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import BookingInfo from "./components/booking-info"
-import NavMenu from "./components/navmenu"
+import NavMenu from "../components/navmenu"
 import PendingInfo from "./components/pending-info"
 import { getHotelDetail } from "../backend_apis"
 import HotelMainInfo from "./components/hotel-main-info"
