@@ -9,11 +9,13 @@ import HotelMainInfo from "./components/hotel-main-info"
 import makeAddress, { AddressType } from "@/helper/makeAddress"
 import ReaceptionReadMode from "./components/reception"
 import CheckBoxList from "../register/components/CheckBoxList"
-import { getAccessibleEnvironments, getAmentities, getBars, getBeautyAndHealth, getConferenceFacilities, getHotelStaffSays, getInfrastructures, getNutritions, getSeaAndBeachAllOptions, getServices, getSports } from "@/app/backend_apis";
+import { getAccessibleEnvironments, getAmentities, getBars, getBeautyAndHealth, getConferenceFacilities, getHotelStaffSays, getInfrastructures, getNutritions, getSeaAndBeachAllOptions, getServices, getSports, getMyHotelData } from "@/app/backend_apis";
 import InternetReadMode from "./components/internet"
 import TransportReadMode from "./components/transport"
 import PetOptionReadMode from "./components/pet-options"
 import ForChildrenReadMode from "./components/for-children"
+import { useRouter } from "next/navigation"
+import { toast } from "react-toastify"
 
 export type HotelInfoType = {
     address: {
@@ -99,6 +101,7 @@ export type HotelInfoType = {
 }
 
 export default function Information() {
+    const router = useRouter()
     const [infrasturucturesAllOptions, setInfrastructuresAllOptions] = useState<string[]>([])
     const [servicesAllOptions, setServicesAllOptions] = useState<string[]>([])
     const [nutritionsAllOptions, setNutritionsAllOptions] = useState<string[]>([])
@@ -111,11 +114,24 @@ export default function Information() {
     const [staffSaysAllOptions, setStaffSaysAllOptions] = useState<string[]>([])
     const [accessibleEnvironmentsAllOptions, setAccessibleEnvironmentsAllOptions] = useState<string[]>([])
     const [hotelData, setHotelData] = useState<HotelInfoType | null>(null)
-
+    const [status, setStatus] = useState<'empty' | 'pending' | 'allowed'>('empty')
     useEffect(() => {
-        getHotelDetail('66a7e26c6e6a667961b6c74d')
-            .then(res => setHotelData(res))
+        getMyHotelData()
+            .then(res => {
+                if (res.status === 'empty') {
+                    toast.error('You have not any hotel. You have to register your hotel first.')
+                    router.push('/register')
+                    return
+                } else if (res.status === 'pending') {
+                    setStatus('pending')
+                    setHotelData(res.hotel)
+                } else if (res.status === 'allowed') {
+                    setStatus('allowed')
+                    setHotelData(res.hotel)
+                }
+            })
     }, [])
+
     useEffect(() => {
         getInfrastructures()
             .then(res => {
@@ -167,7 +183,7 @@ export default function Information() {
     return (
         <div className="px-[16px]">
             <div className="max-w-[1320px] mx-auto ">
-                {isApplicationAllowed ? <div><BookingInfo /></div> : <div><PendingInfo /></div>}
+                {status === 'allowed' ? <div><BookingInfo /></div> : <div><PendingInfo /></div>}
                 <NavMenu />
                 <div className="md:mt-[40px] mt-[32px] md:mb-[16px] mb-[20px]">
                     <HotelMainInfo thumb={hotelData?.thumbs[0]} hotelType={hotelData?.hotelType} hotelTitle={hotelData?.hotelTitle} address={address} description="" star={hotelData?.star} />
