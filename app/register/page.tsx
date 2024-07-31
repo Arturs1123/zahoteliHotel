@@ -9,7 +9,7 @@ import GeneralInformation, { GeneralDataType } from "./components/general-info"
 import HotelPhotos from "./components/hotelPhotos"
 import RoomCategoryStep from "./components/room-category-step"
 import type { RoomCategoryItem as RoomCategoryItemType } from "./components/room-category-item";
-import Tariff from "./components/tariff"
+import Tariff, { TariffItemType } from "./components/tariff"
 import { applyHotelProperty } from "../backend_apis"
 
 export type ApplyDataType = {
@@ -33,6 +33,13 @@ export type ApplyDataType = {
         equipments: string[],
         bathroom: string[],
         photos: string[]
+    }[]
+    tariffs: {
+        tariffName: string
+        tariffType: string
+        nutrition: string
+        cancelReservation: string
+        roomCategory: string
     }[]
 } | GeneralDataType
 
@@ -99,7 +106,7 @@ export default function RegisterPage() {
         setStep('tariff')
     }
 
-    const handleApply = () => {
+    const handleApply = (tariffs: TariffItemType[]) => {
         const applyData: ApplyDataType = {
             hotelType: hotelType,
             hotelTitle: hotelName,
@@ -122,10 +129,19 @@ export default function RegisterPage() {
                 equipments: category.roomEquipmentsOptions,
                 bathroom: category.roomBathroomOptions,
                 photos: category.thumbnails
+            })),
+            tariffs: tariffs.map(t => ({
+                tariffName: t.tariffName,
+                tariffType: t.tariffType,
+                nutrition: t.nutrition,
+                cancelReservation: t.cancelReservation,
+                roomCategory: t.roomCategory.title
             }))
         }
         applyHotelProperty(applyData)
     }
+
+    const roomCategoriesForTariff = categories.map(c => ({ title: c.categoryTitle, amount: c.roomAmount, thumbs: c.thumbnails }))
 
     return (
         <div className="px-[16px]">
@@ -136,7 +152,7 @@ export default function RegisterPage() {
                 {step === 'general-info' ? <div className="md:mt-[32px] mt-[48px]"><GeneralInformation onNext={handleNextFromGeneralInfo} /></div> : null}
                 {step === 'photo' ? <div><HotelPhotos onNext={handleNextFromPhoto} /></div> : null}
                 {step === 'room-category' ? <div><RoomCategoryStep onNext={handleNextFromRoomCategory} /></div> : null}
-                {step === 'tariff' ? <div><Tariff onApply={handleApply} /></div> : null}
+                {step === 'tariff' ? <div><Tariff onApply={handleApply} roomCategories={roomCategoriesForTariff} /></div> : null}
             </div>
         </div>
     )
