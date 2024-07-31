@@ -5,7 +5,7 @@ import PendingStatus from "@/components/PendingStatus"
 import NavMenu from "../components/navmenu"
 import PendingInfo from "../information/components/pending-info"
 
-export default function ReservationPage() {
+export default function CalendarPage() {
     const [status, setStatus] = useState<'empty' | 'pending' | 'allowed'>('empty')
 
     return (

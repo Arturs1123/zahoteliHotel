@@ -1,9 +1,11 @@
 import { useState } from "react"
 import Link from "next/link"
+import { usePathname } from 'next/navigation';
 
 export default function NavMenu() {
+    const pathname = usePathname();
     type MenuItem = 'information' | 'number' | 'rate' | 'calendar' | 'reservation'
-    const [curmenu, setCurmenu] = useState<MenuItem>('information')
+    const [curmenu, setCurmenu] = useState<MenuItem>(pathname.split('/')[1] as MenuItem)
     const handleClickMenu = (menuItem: MenuItem) => {
         setCurmenu(menuItem)
     }
