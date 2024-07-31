@@ -2,10 +2,12 @@ import { unstable_noStore as noStore } from 'next/cache';
 import { toast } from 'react-toastify';
 import { ApplyDataType } from '../register/page';
 
+const token = localStorage.getItem('hotel-owner-token') ? localStorage.getItem('hotel-owner-token') : null
 export async function getTypicalCitiesInRussia() {
     noStore()
     const res = await fetch(`${process.env.BACKEND_API_URL}/api/typical-cities?country=Russia`, {
         mode: 'no-cors',
+        headers: { Authorization: `Bearer ${token}` }
     })
     if (!res.ok) {
         throw new Error('Failed to fetch data')
@@ -17,6 +19,7 @@ export async function getTypicalCitiesInAbkhazia() {
     noStore()
     const res = await fetch(`${process.env.BACKEND_API_URL}/api/typical-cities?country=Abkhazia`, {
         mode: 'no-cors',
+        headers: { Authorization: `Bearer ${token}` }
     })
     if (!res.ok) {
         throw new Error('Failed to fetch data')
@@ -33,6 +36,7 @@ export async function getRecommendedPlaces(destination: string) {
     }
     const res = await fetch(`${process.env.BACKEND_API_URL}/api/recommended-places?${params.toString()}`, {
         mode: 'no-cors',
+        headers: { Authorization: `Bearer ${token}` }
     })
     if (!res.ok) {
         throw new Error('Failed to fetch data')
@@ -43,6 +47,7 @@ export async function getRecommendedPlaces(destination: string) {
 export async function getExcursionCategories() {
     const res = await fetch(`${process.env.BACKEND_API_URL}/api/excursions/categories`, {
         mode: 'no-cors',
+        headers: { Authorization: `Bearer ${token}` }
     })
     if (!res.ok) {
         throw new Error('Failed to fetch data')
@@ -58,7 +63,8 @@ export async function signup(credential: CredentialType) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/owners/signup`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(credential),
     })
@@ -80,7 +86,7 @@ export async function login(credential: LoginCredentialType) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/owners/login`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify(credential),
     })
@@ -96,7 +102,9 @@ export async function login(credential: LoginCredentialType) {
 }
 
 export async function getHotelTypesData() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotelTypes`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotelTypes`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     if (!res.ok) {
         const { error } = await res.json()
         return toast.error(error)
@@ -105,7 +113,9 @@ export async function getHotelTypesData() {
 }
 
 export async function getHotelTransportOptions() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotel_transport`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotel_transport`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     if (!res.ok) {
         const { error } = await res.json()
         return toast.error(error)
@@ -114,7 +124,9 @@ export async function getHotelTransportOptions() {
 }
 
 export async function getHotelChildrenOptions() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/childrenFacilities`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/childrenFacilities`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     if (!res.ok) {
         const { error } = await res.json()
         return toast.error(error)
@@ -123,7 +135,9 @@ export async function getHotelChildrenOptions() {
 }
 
 export async function getHotelStaffSays() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/staff`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/staff`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     if (!res.ok) {
         const { error } = await res.json()
         return toast.error(error)
@@ -132,7 +146,9 @@ export async function getHotelStaffSays() {
 }
 
 export async function getAccessibleEnvironments() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/accessibleEnvironments`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/accessibleEnvironments`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     if (!res.ok) {
         const { error } = await res.json()
         return toast.error(error)
@@ -141,7 +157,9 @@ export async function getAccessibleEnvironments() {
 }
 
 export async function getSeaAndBeachAllOptions() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/seaAndBeach`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/seaAndBeach`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     if (!res.ok) {
         const { error } = await res.json()
         return toast.error(error)
@@ -150,7 +168,9 @@ export async function getSeaAndBeachAllOptions() {
 }
 
 export async function getConferenceFacilities() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/conferenceFacilities`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/conferenceFacilities`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     if (!res.ok) {
         const { error } = await res.json()
         return toast.error(error)
@@ -159,7 +179,9 @@ export async function getConferenceFacilities() {
 }
 
 export async function getAmentities() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/roomAmenities`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/roomAmenities`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     if (!res.ok) {
         const { error } = await res.json()
         return toast.error(error)
@@ -168,7 +190,9 @@ export async function getAmentities() {
 }
 
 export async function getBeautyAndHealth() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/beautyAndHealth`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/beautyAndHealth`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     if (!res.ok) {
         const { error } = await res.json()
         return toast.error(error)
@@ -177,7 +201,9 @@ export async function getBeautyAndHealth() {
 }
 
 export async function getSports() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/entertainmentAndSports`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/entertainmentAndSports`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     if (!res.ok) {
         const { error } = await res.json()
         return toast.error(error)
@@ -186,7 +212,9 @@ export async function getSports() {
 }
 
 export async function getBars() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotelBar`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotelBar`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     if (!res.ok) {
         const { error } = await res.json()
         return toast.error(error)
@@ -195,7 +223,9 @@ export async function getBars() {
 }
 
 export async function getNutritions() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotelNutrition`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotelNutrition`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     if (!res.ok) {
         const { error } = await res.json()
         return toast.error(error)
@@ -204,7 +234,9 @@ export async function getNutritions() {
 }
 
 export async function getServices() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotelService`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotelService`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     if (!res.ok) {
         const { error } = await res.json()
         return toast.error(error)
@@ -213,7 +245,9 @@ export async function getServices() {
 }
 
 export async function getInfrastructures() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotelInfrastructure`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotelInfrastructure`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     if (!res.ok) {
         const { error } = await res.json()
         return toast.error(error)
@@ -226,7 +260,8 @@ export async function uploadHotelThumb(thumbFile: File) {
     formData.append('thumb', thumbFile)
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotel/thumbnail`, {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers: { Authorization: `Bearer ${token}` }
     })
     if (!res.ok) {
         const { error } = await res.json()
@@ -236,7 +271,9 @@ export async function uploadHotelThumb(thumbFile: File) {
 }
 
 export async function getRoomEquipments() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/roomEquipments`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/roomEquipments`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     if (!res.ok) {
         const { error } = await res.json()
         return toast.error(error)
@@ -245,7 +282,9 @@ export async function getRoomEquipments() {
 }
 
 export async function getRoomEntertainments() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/roomEntertainments`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/roomEntertainments`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     if (!res.ok) {
         const { error } = await res.json()
         return toast.error(error)
@@ -254,7 +293,9 @@ export async function getRoomEntertainments() {
 }
 
 export async function getRoomBathroom() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/roomBathroom`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/roomBathroom`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     if (!res.ok) {
         const { error } = await res.json()
         return toast.error(error)
@@ -266,7 +307,8 @@ export async function applyHotelProperty(data: ApplyDataType) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotel`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(data)
     })
@@ -279,7 +321,9 @@ export async function applyHotelProperty(data: ApplyDataType) {
 }
 
 export async function getHotelDetail(id: string) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotel/${id}`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotel/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     if (!res.ok) {
         const { error } = await res.json()
         return toast.error(error)
