@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 export default function ImageUploader({ uploadUrl = '', onChange = () => { }, thumbs = [] }: { uploadUrl?: string, onChange?: ({ thumbURL, created, deleted }: { thumbURL: string, created: boolean, deleted: boolean }) => void, thumbs?: string[] }) {
+    const token = localStorage.getItem('hotel-owner-token') ? localStorage.getItem('hotel-owner-token') : null
     const inputId = uuidv4()
     const divId = uuidv4()
     const [file, setFile] = useState<File | null>(null)
@@ -27,7 +28,8 @@ export default function ImageUploader({ uploadUrl = '', onChange = () => { }, th
             formData.append('thumb', file)
             fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}${uploadUrl}`, {
                 method: 'POST',
-                body: formData
+                body: formData,
+                headers: { Authorization: `Bearer ${token}` }
             })
                 .then(res => res.json())
                 .then(data => {
@@ -47,6 +49,7 @@ export default function ImageUploader({ uploadUrl = '', onChange = () => { }, th
         const fileName = thumbURL?.split('/').pop()
         fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}${uploadUrl}/${fileName}`, {
             method: 'DELETE',
+            headers: { Authorization: `Bearer ${token}` }
         })
             .then(res => res.json())
             .then(res => {
