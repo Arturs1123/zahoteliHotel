@@ -11,6 +11,7 @@ import RoomCategoryStep from "./components/room-category-step"
 import type { RoomCategoryItem as RoomCategoryItemType } from "./components/room-category-item";
 import Tariff, { TariffItemType } from "./components/tariff"
 import { applyHotelProperty } from "../backend_apis"
+import { useRouter } from "next/navigation"
 
 export type ApplyDataType = {
     hotelType: string,
@@ -45,6 +46,7 @@ export type ApplyDataType = {
 
 type RegisterStep = 'hotel-type' | 'address' | 'general-info' | 'photo' | 'room-category' | 'tariff'
 export default function RegisterPage() {
+    const router = useRouter()
 
     const [step, setStep] = useState<RegisterStep>('hotel-type')
     const stepsArr = ['hotel-type', 'address', 'general-info', 'photo', 'room-category', 'tariff']
@@ -139,6 +141,9 @@ export default function RegisterPage() {
             }))
         }
         applyHotelProperty(applyData)
+            .then(() => {
+                router.push('/information')
+            })
     }
 
     const roomCategoriesForTariff = categories.map(c => ({ title: c.categoryTitle, amount: c.roomAmount, thumbs: c.thumbnails }))

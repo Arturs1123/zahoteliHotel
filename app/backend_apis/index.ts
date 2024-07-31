@@ -274,6 +274,7 @@ export async function applyHotelProperty(data: ApplyDataType) {
         const { error } = await res.json()
         return toast.error(error)
     }
+    toast.success('ok')
     return res.json()
 }
 
