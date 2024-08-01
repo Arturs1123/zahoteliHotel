@@ -119,7 +119,7 @@ export default function Information() {
         getMyHotelData()
             .then(res => {
                 if (res.status === 'empty') {
-                    toast.error('You have not any hotel. You have to register your hotel first.')
+                    toast.error('У вас нет отеля. Сначала вам нужно зарегистрировать свой отель.')
                     router.push('/register')
                     return
                 } else if (res.status === 'pending') {
