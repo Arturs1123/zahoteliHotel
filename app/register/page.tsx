@@ -53,7 +53,7 @@ export default function RegisterPage() {
     const steps = [
         {
             title: "Что хотите сдавать?",
-            value: "What do you want to submit?",
+            value: "Что хотите сдавать?",
         }, {
             title: "Адрес",
             value: "Address",

@@ -24,7 +24,7 @@ export default function Stepper({ StepsData, currentIndex }: StepsDataType) {
 							<div className="w-full bg-[#3C4EF2] h-[12px] rounded-lg"></div>
 						</div> :
 						<div className="space-y-3" key={c.value}>
-							<div className="truncate text-lg font-500 text-[#919494]">What do you want to submit?</div>
+							<div className="truncate text-lg font-500 text-[#919494]">{c.title}</div>
 							<div className="w-full bg-[#EEEEEE] h-[12px] rounded-lg"></div>
 						</div>
 
