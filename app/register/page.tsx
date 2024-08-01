@@ -3,7 +3,6 @@
 import { useState } from "react"
 import Stepper from "../Registration/Stepper"
 import ChooseHotelType from "./components/hotel-type"
-import { toast } from "react-toastify"
 import WriteAddress from "./components/address"
 import GeneralInformation, { GeneralDataType } from "./components/general-info"
 import HotelPhotos from "./components/hotelPhotos"
@@ -18,6 +17,8 @@ export type ApplyDataType = {
     hotelTitle: string,
     address: { country: string, region: string, city: string, street: string, house: string, building: string },
     thumbs: string[],
+    distanceFromTheSea: number,
+    distanceFromTheCityCenter: number,
     roomCategories: {
         categoryName: string,
         size: number,
@@ -75,6 +76,9 @@ export default function RegisterPage() {
 
     const [hotelType, setHotelType] = useState<string>('')
     const [hotelName, setHotelName] = useState<string>('')
+    const [distanceFromTheSea, setDistanceFromTheSea] = useState<number>(0)
+    const [distanceFromTheCityCenter, setDistanceFromTheCityCenter] = useState<number>(0)
+
     const [address, setAddress] = useState<{ country: string, region: string, city: string, street: string, house: string, building: string }>({
         country: 'Russia', region: '', city: '', street: '', house: '', building: ''
     })
@@ -86,8 +90,10 @@ export default function RegisterPage() {
         setStep('address')
     }
 
-    const handleNextFromAddress = ({ country, region, city, street, house, building }: { country: string, region: string, city: string, street: string, house: string, building: string }) => {
+    const handleNextFromAddress = ({ country, region, city, street, house, building, distanceFromTheSea, distanceFromTheCityCenter }: { country: string, region: string, city: string, street: string, house: string, building: string, distanceFromTheSea: number, distanceFromTheCityCenter: number }) => {
         setAddress({ country, region, city, street, house, building })
+        setDistanceFromTheCityCenter(distanceFromTheCityCenter)
+        setDistanceFromTheSea(distanceFromTheSea)
         setStep('general-info')
     }
 
@@ -114,6 +120,8 @@ export default function RegisterPage() {
             hotelTitle: hotelName,
             address: address,
             thumbs: photos,
+            distanceFromTheSea,
+            distanceFromTheCityCenter,
             ...generalData,
             roomCategories: categories.map(category => ({
                 categoryName: category.categoryTitle,
