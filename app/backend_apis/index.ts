@@ -341,3 +341,29 @@ export async function getMyHotelData() {
     }
     return res.json()
 }
+
+export async function getMyHotelStatus() {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotel/my-hotel-status`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    if (!res.ok) {
+        const { error } = await res.json()
+        return toast.error(error)
+    }
+    return res.json()
+}
+
+export async function removeMyHotel() {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/hotel/remove-my-hotel`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+    })
+    if (!res.ok) {
+        const { error } = await res.json()
+        return toast.error(error)
+    }
+    return res.json()
+}

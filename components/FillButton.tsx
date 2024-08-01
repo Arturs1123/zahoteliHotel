@@ -1,8 +1,10 @@
 import Image from "next/image"
 
+type ButtonType = 'primary' | 'danger' | 'warning' | 'info'
+
 export default function FillButton(
-    { size = 'md', caption = '', onBtnClick = () => { }, isFullWidth = false, withArrow = false, ...props }:
-        { size?: 'lg' | 'md' | 'sm', caption?: string, onBtnClick?: () => void, isFullWidth?: boolean, withArrow?: boolean } & React.HTMLAttributes<HTMLDivElement>
+    { size = 'md', caption = '', onBtnClick = () => { }, isFullWidth = false, withArrow = false, type = 'primary', ...props }:
+        { size?: 'lg' | 'md' | 'sm', caption?: string, onBtnClick?: () => void, isFullWidth?: boolean, withArrow?: boolean, type?: ButtonType } & React.HTMLAttributes<HTMLDivElement>
 ) {
     const properties = {
         lg: { rounded: '12px', px: '32px', py: '20px', fsize: 'md:text-h5 text-h6' },
@@ -12,8 +14,17 @@ export default function FillButton(
 
     const { rounded, px, py, fsize } = properties[size]
 
+    const bgColors = {
+        primary: '#3C4EF2',
+        danger: '#E13914',
+        warning: '#E6A600',
+        info: '#3BA87E'
+    }
+
+    const bgColor = bgColors[type]
+
     return (
-        <button className={`${props.className ? props.className : ''} ${isFullWidth ? 'w-full' : ''} bg-accent text-white rounded-[${rounded}] px-[${px}] py-[${py}] ${fsize} flex items-center justify-center`} onClick={onBtnClick}>
+        <button className={`${props.className ? props.className : ''} ${isFullWidth ? 'w-full' : ''} text-white rounded-[${rounded}] px-[${px}] py-[${py}] ${fsize} flex items-center justify-center`} onClick={onBtnClick} style={{ backgroundColor: bgColor }}>
             <span>{caption}</span>
             {withArrow ? <Image src="/icons/svg/arrow-right-white.svg" width={20} height={20} alt="arrow" className="ml-[8px]" /> : null}
         </button>

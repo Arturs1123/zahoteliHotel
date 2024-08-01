@@ -3,21 +3,50 @@ import FillButton from "@/components/FillButton";
 import decodedJWT from "@/helper/decodedJWT";
 import { toast } from "react-toastify";
 import { useRouter } from 'next/navigation';
+import { getMyHotelStatus, removeMyHotel } from "../backend_apis";
+import ConfirmModal from "./ConfirmModal";
+
+type MyHotelStatusType = 'allowed' | 'pending' | 'empty'
 
 export default function Wanted() {
 	const router = useRouter();
 	useEffect(() => {
 		const { isAuthenticated } = decodedJWT()
+		if (isAuthenticated) {
+			getMyHotelStatus()
+				.then(res => setMyHotelStatus(res.status as MyHotelStatusType))
+		}
 		setIsAuthenticated(isAuthenticated)
 	}, [])
+
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
+	const [myHotelStatus, setMyHotelStatus] = useState<MyHotelStatusType>('empty')
+	const [confirmModalVisible, setConfirmModalVisible] = useState<boolean>(false)
+
 	const handleRegisterHotel = () => {
 		if (isAuthenticated) {
-			router.push('/register')
+			if (myHotelStatus === 'empty') {
+				router.push('/register')
+			} else if (myHotelStatus === 'pending' || myHotelStatus === 'allowed') {
+				setConfirmModalVisible(true)
+			}
 		} else {
 			toast.error('войдите в систему первым')
 		}
 	};
+
+	const handleConfirmCancel = () => {
+		setConfirmModalVisible(false)
+		router.push('/information')
+	}
+
+	const handleConfirmOK = () => {
+		removeMyHotel()
+			.then(() => {
+				setConfirmModalVisible(false)
+				router.push('/register')
+			})
+	}
 
 	return (
 		<div className="px-[16px]">
@@ -32,6 +61,7 @@ export default function Wanted() {
 					<img src="/image/wanted.svg" className="ml-[40px] md:block hidden" />
 				</div>
 			</div>
+			<ConfirmModal isModalOpen={confirmModalVisible} onOk={handleConfirmOK} onCancel={handleConfirmCancel} />
 		</div>
 	);
 }
