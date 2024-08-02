@@ -64,7 +64,6 @@ export async function signup(credential: CredentialType) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(credential),
     })
