@@ -1,13 +1,37 @@
 'use client'
 
-import { useState } from "react"
+import { Input } from "antd"
+import { useState, useEffect } from "react"
 import PendingStatus from "@/components/PendingStatus"
 import NavMenu from "../components/navmenu"
 import PendingInfo from "../information/components/pending-info"
-import { Input } from "antd"
+import { getMyHotelData } from "@/app/backend_apis";
+import { toast } from "react-toastify"
+import { useRouter } from "next/navigation"
+import { HotelInfoType } from "../information/page"
 
 export default function ReservationPage() {
-    const [status, setStatus] = useState<'empty' | 'pending' | 'allowed'>('empty')
+    const [status, setStatus] = useState<'empty' | 'pending' | 'allowed'>('allowed')
+
+
+    const router = useRouter()
+    const [hotelData, setHotelData] = useState<HotelInfoType | null>(null)
+    useEffect(() => {
+        getMyHotelData()
+            .then(res => {
+                if (res.status === 'empty') {
+                    toast.error('У вас нет отеля. Сначала вам нужно зарегистрировать свой отель.')
+                    router.push('/register')
+                    return
+                } else if (res.status === 'pending') {
+                    setStatus('pending')
+                    setHotelData(res.hotel)
+                } else if (res.status === 'allowed') {
+                    setStatus('allowed')
+                    setHotelData(res.hotel)
+                }
+            })
+    }, [])
     const reservations = [
         {
             booking: {

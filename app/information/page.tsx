@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import BookingInfo from "./components/booking-info"
 import NavMenu from "../components/navmenu"
 import PendingInfo from "./components/pending-info"
-import { getHotelDetail } from "../backend_apis"
 import HotelMainInfo from "./components/hotel-main-info"
 import makeAddress, { AddressType } from "@/helper/makeAddress"
 import ReaceptionReadMode from "./components/reception"
@@ -114,7 +113,7 @@ export default function Information() {
     const [staffSaysAllOptions, setStaffSaysAllOptions] = useState<string[]>([])
     const [accessibleEnvironmentsAllOptions, setAccessibleEnvironmentsAllOptions] = useState<string[]>([])
     const [hotelData, setHotelData] = useState<HotelInfoType | null>(null)
-    const [status, setStatus] = useState<'empty' | 'pending' | 'allowed'>('empty')
+    const [status, setStatus] = useState<'empty' | 'pending' | 'allowed'>('allowed')
     useEffect(() => {
         getMyHotelData()
             .then(res => {

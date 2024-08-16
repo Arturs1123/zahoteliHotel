@@ -1,13 +1,9 @@
 'use client'
-import CustomSwitch from "@/components/CustomSwitch";
-import MapComponent from "@/components/MapComponent";
+import { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
-import { Card, Radio, Input, Button, Table, Space, Tag } from "antd"
+import { Table, Space } from "antd"
 import type { TableProps } from 'antd';
 import Image from "next/image";
-
-import Link from "next/link";
-import { useState } from "react";
 import TariffDrawer from "./TariffDrawer";
 
 interface TariffDataType {
