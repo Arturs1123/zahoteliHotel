@@ -5,15 +5,15 @@ import { Checkbox, TimePicker } from "antd"
 import dayjs from "dayjs"
 import type { Dayjs } from "dayjs"
 
-export default function Reception({ onChange = () => { } }: { onChange?: ({ isAvailable, isWholeDay, from, to, checkIn, checkOut }: { isAvailable: boolean, isWholeDay: boolean, from: Dayjs | null, to: Dayjs | null, checkIn: Dayjs | null, checkOut: Dayjs | null }) => void }) {
+export default function Reception({ onChange = () => { } }: { onChange?: ({ isAvailable, isWholeDay, from, to, checkIn, checkOut }: { isAvailable: boolean, isWholeDay: boolean, from: string, to: string, checkIn: string, checkOut: string }) => void }) {
     const [toggle, setToggle] = useState(false)
     const [isAvailable, setIsAvabilable] = useState(false)
     const [isWholeDay, setIsWholeDay] = useState(false)
     const [selectedOption, setSelectedOption] = useState('Круглосуточно')
-    const [from, setFrom] = useState<Dayjs | null>(null);
-    const [to, setTo] = useState<Dayjs | null>(null);
-    const [checkIn, setCheckIn] = useState<Dayjs | null>(null);
-    const [checkOut, setCheckOut] = useState<Dayjs | null>(null);
+    const [from, setFrom] = useState<string>("12:00");
+    const [to, setTo] = useState<string>("12:00");
+    const [checkIn, setCheckIn] = useState<string>("12:00");
+    const [checkOut, setCheckOut] = useState<string>("12:00");
 
     const handleSwitchChange = (option: string) => {
         setSelectedOption(option)
@@ -24,6 +24,16 @@ export default function Reception({ onChange = () => { } }: { onChange?: ({ isAv
     useEffect(() => {
         onChange({ isAvailable, isWholeDay, from, to, checkIn, checkOut })
     }, [isAvailable, isWholeDay, from, to, checkIn, checkOut])
+
+    const handleChangeTime = (field: string) => (e: any) => {
+        switch (field) {
+            case 'from': setFrom(dayjs(e).format(format)); break;
+            case 'to': setTo(dayjs(e).format(format)); break;
+            case 'checkIn': setCheckIn(dayjs(e).format(format)); break;
+            case 'checkOut': setCheckOut(dayjs(e).format(format)); break;
+            default: break;
+        }
+    }
     return (
         <div>
             <div className="md:p-[32px] p-[24px] border md:rounded-[16px] bg-[#FFFFFF]">
@@ -39,8 +49,8 @@ export default function Reception({ onChange = () => { } }: { onChange?: ({ isAv
                             <div className="md:flex">
                                 <CustomSwitch className="md:max-w-[372px] md:mr-[16px] md:mb-0 mb-[16px]" option1="Круглосуточно" option2="Укажу время" selectedValue={selectedOption} onSwitchChange={handleSwitchChange} />
                                 <div className="grid grid-cols-2 gap-[16px]">
-                                    <TimePicker defaultValue={dayjs('12:08', format)} format={format} className="p-[12px]" value={from} onChange={setFrom} />
-                                    <TimePicker defaultValue={dayjs('12:08', format)} format={format} className="p-[12px]" value={to} onChange={setTo} />
+                                    <TimePicker defaultValue={dayjs('12:00', format)} format={format} className="p-[12px]" value={dayjs(from, format)} onChange={handleChangeTime('from')} />
+                                    <TimePicker defaultValue={dayjs('12:00', format)} format={format} className="p-[12px]" value={dayjs(to, format)} onChange={handleChangeTime('to')} />
                                 </div>
                             </div>
 
@@ -53,8 +63,8 @@ export default function Reception({ onChange = () => { } }: { onChange?: ({ isAv
                         <div className="md:max-w-[357px] w-full">
                             <p className="text-btn mb-[16px]">Заезд и выезд</p>
                             <div className="grid grid-cols-2 gap-4">
-                                <TimePicker defaultValue={dayjs('12:08', format)} format={format} className="p-[12px]" value={checkIn} onChange={setCheckIn} />
-                                <TimePicker defaultValue={dayjs('12:08', format)} format={format} className="p-[12px]" value={checkOut} onChange={setCheckOut} />
+                                <TimePicker defaultValue={dayjs('12:00', format)} format={format} className="p-[12px]" value={dayjs(checkIn, format)} onChange={handleChangeTime('checkIn')} />
+                                <TimePicker defaultValue={dayjs('12:00', format)} format={format} className="p-[12px]" value={dayjs(checkOut, format)} onChange={handleChangeTime('checkOut')} />
                             </div>
                         </div>
                     </div> : null}

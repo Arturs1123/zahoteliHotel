@@ -16,11 +16,11 @@ export type GeneralDataType = {
     reception: {
         isAvailable: boolean,
         isWholeDay: boolean,
-        from: Dayjs | null,
-        to: Dayjs | null,
+        from: string,
+        to: string,
     },
-    checkIn: Dayjs | null,
-    checkOut: Dayjs | null,
+    checkIn: string,
+    checkOut: string,
     infrastuructures: string[],
     services: string[],
     nutritions: string[],
@@ -64,10 +64,10 @@ export default function GeneralInformation({ onNext = () => { } }: { onNext?: (o
     const [star, setStar] = useState<number>(0)
     const [isAvailable, setIsAvabilable] = useState(false)
     const [isWholeDay, setIsWholeDay] = useState(false)
-    const [from, setFrom] = useState<Dayjs | null>(null);
-    const [to, setTo] = useState<Dayjs | null>(null);
-    const [checkIn, setCheckIn] = useState<Dayjs | null>(null);
-    const [checkOut, setCheckOut] = useState<Dayjs | null>(null);
+    const [from, setFrom] = useState<string>("12:00");
+    const [to, setTo] = useState<string>("12:00");
+    const [checkIn, setCheckIn] = useState<string>("12:00");
+    const [checkOut, setCheckOut] = useState<string>("12:00");
     const [infrasturucturesAllOptions, setInfrastructuresAllOptions] = useState<string[]>([])
     const [infrastuructures, setInfrastructures] = useState<string[]>([])
     const [servicesAllOptions, setServicesAllOptions] = useState<string[]>([])
@@ -105,7 +105,7 @@ export default function GeneralInformation({ onNext = () => { } }: { onNext?: (o
     const [accessibleEnvironments, setAccessibleEnvironments] = useState<string[]>([])
     const [accessibleEnvironmentsAllOptions, setAccessibleEnvironmentsAllOptions] = useState<string[]>([])
 
-    const handleReceptionChange = ({ isAvailable, isWholeDay, from, to, checkIn, checkOut }: { isAvailable: boolean, isWholeDay: boolean, from: Dayjs | null, to: Dayjs | null, checkIn: Dayjs | null, checkOut: Dayjs | null }) => {
+    const handleReceptionChange = ({ isAvailable, isWholeDay, from, to, checkIn, checkOut }: { isAvailable: boolean, isWholeDay: boolean, from: string, to: string, checkIn: string, checkOut: string }) => {
         setIsAvabilable(isAvailable)
         setIsWholeDay(isWholeDay)
         setFrom(from)
