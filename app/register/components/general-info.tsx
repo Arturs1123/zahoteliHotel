@@ -21,7 +21,7 @@ export type GeneralDataType = {
     },
     checkIn: string,
     checkOut: string,
-    infrastuructures: string[],
+    infrastructures: string[],
     services: string[],
     nutritions: string[],
     bars: string[],
@@ -55,7 +55,7 @@ export type GeneralDataType = {
         possible: boolean,
         services: string[]
     },
-    accessibleEnvironments: string[],
+    accesibleEnvironments: string[],
     staffSays: string[],
 }
 
@@ -68,8 +68,8 @@ export default function GeneralInformation({ onNext = () => { } }: { onNext?: (o
     const [to, setTo] = useState<string>("12:00");
     const [checkIn, setCheckIn] = useState<string>("12:00");
     const [checkOut, setCheckOut] = useState<string>("12:00");
-    const [infrasturucturesAllOptions, setInfrastructuresAllOptions] = useState<string[]>([])
-    const [infrastuructures, setInfrastructures] = useState<string[]>([])
+    const [infrastructuresAllOptions, setInfrastructuresAllOptions] = useState<string[]>([])
+    const [infrastructures, setInfrastructures] = useState<string[]>([])
     const [servicesAllOptions, setServicesAllOptions] = useState<string[]>([])
     const [services, setServices] = useState<string[]>([])
     const [nutritionsAllOptions, setNutritionsAllOptions] = useState<string[]>([])
@@ -100,9 +100,9 @@ export default function GeneralInformation({ onNext = () => { } }: { onNext?: (o
     const [transportOptions, setTransportOptions] = useState<string[]>([])
     const [childrenAllowed, setChildrenAllowed] = useState<boolean>(false)
     const [childrenOptions, setChildrenOptions] = useState<string[]>([])
-    const [petAllowed, setPetAllowed] = useState<boolean>(false)
+    const [petsAllowed, setPetAllowed] = useState<boolean>(false)
     const [staffSaysAllOptions, setStaffSaysAllOptions] = useState<string[]>([])
-    const [accessibleEnvironments, setAccessibleEnvironments] = useState<string[]>([])
+    const [accesibleEnvironments, setAccessibleEnvironments] = useState<string[]>([])
     const [accessibleEnvironmentsAllOptions, setAccessibleEnvironmentsAllOptions] = useState<string[]>([])
 
     const handleReceptionChange = ({ isAvailable, isWholeDay, from, to, checkIn, checkOut }: { isAvailable: boolean, isWholeDay: boolean, from: string, to: string, checkIn: string, checkOut: string }) => {
@@ -137,7 +137,7 @@ export default function GeneralInformation({ onNext = () => { } }: { onNext?: (o
     }
 
     const handlePetOptionChange = (allowed: boolean) => {
-        setPetAllowed(petAllowed)
+        setPetAllowed(allowed)
     }
 
 
@@ -153,7 +153,7 @@ export default function GeneralInformation({ onNext = () => { } }: { onNext?: (o
             },
             checkIn,
             checkOut,
-            infrastuructures,
+            infrastructures,
             services,
             nutritions,
             bars,
@@ -182,12 +182,12 @@ export default function GeneralInformation({ onNext = () => { } }: { onNext?: (o
             },
             conferenceFacilities,
             seaAndBeach,
-            petsAllowed: petAllowed,
+            petsAllowed,
             forChildren: {
                 possible: childrenAllowed,
                 services: childrenOptions
             },
-            accessibleEnvironments,
+            accesibleEnvironments,
             staffSays,
         }
         onNext(generalData)
@@ -245,7 +245,7 @@ export default function GeneralInformation({ onNext = () => { } }: { onNext?: (o
             <p className="md:text-h3 text-h4 md:mb-[32px] mb-[20px]">Общая информация</p>
             <div className="md:mb-[16px] mb-[16px]"><StarSelector onStarChange={setStar} /></div>
             <div className="md:mb-[16px] mb-[16px]"><Reception onChange={handleReceptionChange} /></div>
-            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/HotelInfrastructure.svg" title="Инфраструктура отеля" data={infrasturucturesAllOptions} onCheckBoxListChange={setInfrastructures} /></div>
+            <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/HotelInfrastructure.svg" title="Инфраструктура отеля" data={infrastructuresAllOptions} onCheckBoxListChange={setInfrastructures} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/hotel-services.svg" title="Услуги в отеле" data={servicesAllOptions} onCheckBoxListChange={setServices} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/apple-one 1.svg" title="Питание" data={nutritionsAllOptions} onCheckBoxListChange={setNutritions} /></div>
             <div className="md:mb-[16px] mb-[16px]"><CheckBoxList icon="/icons/svg/goblet-one 1.svg" title="Бар и ресторан" data={barsAllOptions} onCheckBoxListChange={setBars} /></div>

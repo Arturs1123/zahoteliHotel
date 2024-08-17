@@ -18,7 +18,7 @@ export type ApplyDataType = {
     address: { country: string, region: string, city: string, street: string, house: string, building: string },
     thumbs: string[],
     distanceFromTheSea: number,
-    distanceFromTheCityCenter: number,
+    distanceFromTheCenter: number,
     roomCategories: {
         categoryName: string,
         size: number,
@@ -77,7 +77,7 @@ export default function RegisterPage() {
     const [hotelType, setHotelType] = useState<string>('')
     const [hotelName, setHotelName] = useState<string>('')
     const [distanceFromTheSea, setDistanceFromTheSea] = useState<number>(0)
-    const [distanceFromTheCityCenter, setDistanceFromTheCityCenter] = useState<number>(0)
+    const [distanceFromTheCenter, setDistanceFromTheCityCenter] = useState<number>(0)
 
     const [address, setAddress] = useState<{ country: string, region: string, city: string, street: string, house: string, building: string }>({
         country: 'Russia', region: '', city: '', street: '', house: '', building: ''
@@ -90,9 +90,9 @@ export default function RegisterPage() {
         setStep('address')
     }
 
-    const handleNextFromAddress = ({ country, region, city, street, house, building, distanceFromTheSea, distanceFromTheCityCenter }: { country: string, region: string, city: string, street: string, house: string, building: string, distanceFromTheSea: number, distanceFromTheCityCenter: number }) => {
+    const handleNextFromAddress = ({ country, region, city, street, house, building, distanceFromTheSea, distanceFromTheCenter }: { country: string, region: string, city: string, street: string, house: string, building: string, distanceFromTheSea: number, distanceFromTheCenter: number }) => {
         setAddress({ country, region, city, street, house, building })
-        setDistanceFromTheCityCenter(distanceFromTheCityCenter)
+        setDistanceFromTheCityCenter(distanceFromTheCenter)
         setDistanceFromTheSea(distanceFromTheSea)
         setStep('general-info')
     }
@@ -121,7 +121,7 @@ export default function RegisterPage() {
             address: address,
             thumbs: photos,
             distanceFromTheSea,
-            distanceFromTheCityCenter,
+            distanceFromTheCenter,
             ...generalData,
             roomCategories: categories.map(category => ({
                 categoryName: category.categoryTitle,

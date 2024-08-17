@@ -6,7 +6,7 @@ import { Input } from "antd"
 import { useState } from "react";
 import { toast } from "react-toastify"
 
-export default function WriteAddress({ onNext = () => { } }: { onNext?: ({ country, region, city, street, house, building, distanceFromTheSea, distanceFromTheCityCenter }: { country: string, region: string, city: string, street: string, house: string, building: string, distanceFromTheSea: number, distanceFromTheCityCenter: number }) => void }) {
+export default function WriteAddress({ onNext = () => { } }: { onNext?: ({ country, region, city, street, house, building, distanceFromTheSea, distanceFromTheCenter }: { country: string, region: string, city: string, street: string, house: string, building: string, distanceFromTheSea: number, distanceFromTheCenter: number }) => void }) {
     const [region, setRegion] = useState('')
     const [city, setCity] = useState('')
     const [street, setStreet] = useState('')
@@ -14,7 +14,7 @@ export default function WriteAddress({ onNext = () => { } }: { onNext?: ({ count
     const [building, setBuilding] = useState('')
     const [country, setCountry] = useState('Россия')
     const [distanceFromTheSea, setDistanceFromTheSea] = useState<number>(0)
-    const [distanceFromTheCityCenter, setDistanceFromTheCityCenter] = useState<number>(0)
+    const [distanceFromTheCenter, setDistanceFromTheCityCenter] = useState<number>(0)
 
     const handleSwitchChange = (country: string) => {
         setCountry(country)
@@ -24,7 +24,7 @@ export default function WriteAddress({ onNext = () => { } }: { onNext?: ({ count
         if (!country || !region || !city || !street || !house || !building) {
             return toast.error('введите все поля')
         }
-        onNext({ country, region, city, street, house, building, distanceFromTheSea, distanceFromTheCityCenter })
+        onNext({ country, region, city, street, house, building, distanceFromTheSea, distanceFromTheCenter })
     }
 
     return (
@@ -42,7 +42,7 @@ export default function WriteAddress({ onNext = () => { } }: { onNext?: ({ count
                             <Input placeholder="Дом" className="p-[12px] col-span my-1" value={house} onChange={e => setHouse(e.target.value)} />
                             <Input placeholder="Корпус" className="p-[12px] col-span my-1" value={building} onChange={e => setBuilding(e.target.value)} />
                             <Input placeholder="расстояние от моря" className="p-[12px] col-span-2 my-1 md:col-span-2" value={distanceFromTheSea} onChange={e => setDistanceFromTheSea(parseFloat(e.target.value))} suffix="Km" />
-                            <Input placeholder="расстояние от центра города" className="p-[12px] col-span-2 my-1 md:col-span-2" value={distanceFromTheCityCenter} onChange={e => setDistanceFromTheCityCenter(parseFloat(e.target.value))} suffix="Km" />
+                            <Input placeholder="расстояние от центра города" className="p-[12px] col-span-2 my-1 md:col-span-2" value={distanceFromTheCenter} onChange={e => setDistanceFromTheCityCenter(parseFloat(e.target.value))} suffix="Km" />
                         </div>
                     </div>
                 </div>
