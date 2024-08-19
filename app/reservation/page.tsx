@@ -35,6 +35,8 @@ export default function ReservationPage() {
         getBookingsUptoMyHotel()
             .then(res => {
                 setReservationData(res.data)
+            }).catch(error => {
+                console.log(error)
             })
     }, [])
 

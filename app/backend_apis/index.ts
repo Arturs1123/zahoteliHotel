@@ -1,6 +1,7 @@
 import { unstable_noStore as noStore } from 'next/cache';
 import { toast } from 'react-toastify';
 import { ApplyDataType } from '../register/page';
+import { redirect } from 'next/navigation';
 
 const token = localStorage.getItem('hotel-owner-token') ? localStorage.getItem('hotel-owner-token') : null
 export async function getTypicalCitiesInRussia() {
@@ -371,5 +372,13 @@ export async function getBookingsUptoMyHotel() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/booking/myhotel`, {
         headers: { Authorization: `Bearer ${token}` }
     })
+    if (!res.ok) {
+        if (res.status == 401) {
+            localStorage.setItem('hotel-owner-token', "")
+            redirect('/')
+        }
+        const { error } = await res.json();
+        return toast.error(error)
+    }
     return res.json()
 }
