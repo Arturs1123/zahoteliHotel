@@ -1,0 +1,30 @@
+
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Deploy to server
+      env:
+        SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_KEY" > ~/.ssh/simba
+        chmod 600 ~/.ssh/simba
+        ssh-keyscan -H 195.114.193.110 >> ~/.ssh/known_hosts
+        rsync -avz -e "ssh -i ~/.ssh/simba" ./ simba@195.114.193.110:/home/simba/Said/Zahoteli-O
