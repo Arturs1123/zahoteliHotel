@@ -55,8 +55,8 @@ export default function Wanted() {
 					<div>
 						<p className="md:text-h1 text-h4 mb-[16px]">Захотели — для отелей</p>
 						<p className="font-[500] md:text-[24px] text-[20px] md:leading-[32.78px] leading-[30px] md:mb-[36px] mb-[24px]">Добавьте свой объект размещения на Захотели и зарабатывайте</p>
-						<FillButton caption="Зарегистрироваться" onBtnClick={handleRegisterHotel} className="md:block hidden" isFullWidth={false} />
-						<FillButton caption="Зарегистрироваться" onBtnClick={handleRegisterHotel} className="md:hidden block" isFullWidth={true} />
+						{isAuthenticated ? (<FillButton caption="Зарегистрировать отель" onBtnClick={handleRegisterHotel} className="md:block hidden" isFullWidth={false} />) : ''}
+						{isAuthenticated ? (<FillButton caption="Зарегистрировать отель" onBtnClick={handleRegisterHotel} className="md:hidden block" isFullWidth={true} />) : ''}
 					</div>
 					<img src="/image/wanted.svg" className="ml-[40px] md:block hidden" />
 				</div>
